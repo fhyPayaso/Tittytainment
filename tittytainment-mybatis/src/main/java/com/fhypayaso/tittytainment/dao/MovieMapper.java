@@ -4,11 +4,11 @@ import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import java.util.List;
 
 public interface MovieMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Movie record);
 
-    Movie selectByPrimaryKey(Integer id);
+    Movie selectByPrimaryKey(Long id);
 
     List<Movie> selectAll();
 

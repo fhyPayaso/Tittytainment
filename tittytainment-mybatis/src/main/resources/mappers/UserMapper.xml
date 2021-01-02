@@ -7,7 +7,7 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
   </resultMap>
@@ -23,7 +23,7 @@
       cover_url, `status`, created_time, 
       updated_time)
     values (#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{coverUrl,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{coverUrl,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.fhypayaso.tittytainment.pojo.entity.User">
@@ -32,7 +32,7 @@
       `password` = #{password,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       cover_url = #{coverUrl,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=BIT},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

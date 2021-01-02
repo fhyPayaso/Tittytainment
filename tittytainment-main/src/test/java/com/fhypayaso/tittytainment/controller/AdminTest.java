@@ -2,10 +2,12 @@ package com.fhypayaso.tittytainment.controller;
 
 import com.fhypayaso.tittytainment.exception.ApiException;
 import com.fhypayaso.tittytainment.modules.security.service.UserRoleService;
+import com.fhypayaso.tittytainment.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /* ====================================================
 #
@@ -25,6 +27,8 @@ public class AdminTest {
     @Test
     public void insert() throws ApiException {
 
+        Date date = DateUtil.formatStr2Date("yyyy/MM/dd", "2000/10/01");
+        System.out.println(date);
 
 
 //        userRoleService.insert(3, 1);

@@ -4,17 +4,20 @@ import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface MovieMapper {
-
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Movie record);
 
-    Movie selectByPrimaryKey(Integer id);
+    Movie selectByPrimaryKey(Long id);
+
+    Movie selectByDoubanId(Long dbId);
 
     List<Movie> selectAll();
 
     int updateByPrimaryKey(Movie record);
+
+    int deleteAll();
+
 }

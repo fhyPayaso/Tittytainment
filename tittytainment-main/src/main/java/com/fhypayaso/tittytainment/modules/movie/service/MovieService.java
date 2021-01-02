@@ -1,6 +1,8 @@
 package com.fhypayaso.tittytainment.modules.movie.service;
 
+import com.fhypayaso.tittytainment.pojo.entity.Filmmaker;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
+import com.fhypayaso.tittytainment.pojo.entity.Profession;
 import com.fhypayaso.tittytainment.pojo.entity.User;
 
 import java.util.List;
@@ -14,13 +16,23 @@ import java.util.List;
 # ====================================================*/
 public interface MovieService {
 
-    int insert(Movie user);
+    int insert(Movie movie);
 
-    Movie queryById(Integer id);
+    int deleteAll();
 
-    int deleteById(Integer id);
+    int insertMovieFilmmaker(Movie movie, Filmmaker filmmaker, Profession profession);
 
-    int updateById(User user);
+
+    int deleteAllMovieFilmmaker();
+
+
+    Movie queryById(Long id);
+
+    Movie queryByDoubanId(Long dbId);
+
+    int deleteById(Long id);
+
+    int update(Movie movie);
 
     List<Movie> queryAll();
 

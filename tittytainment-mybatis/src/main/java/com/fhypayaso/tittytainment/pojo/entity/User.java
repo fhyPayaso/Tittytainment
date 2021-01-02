@@ -14,7 +14,7 @@ public class User implements Serializable {
 
     private String coverUrl;
 
-    private Byte status;
+    private Boolean status;
 
     private Date createdTime;
 
@@ -62,11 +62,11 @@ public class User implements Serializable {
         this.coverUrl = coverUrl == null ? null : coverUrl.trim();
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

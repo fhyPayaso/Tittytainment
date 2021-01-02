@@ -1,44 +1,40 @@
 package com.fhypayaso.tittytainment.pojo.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/* ====================================================
-#
-#   @Author        : fhyPayaso
-#   @Email         : 401619823@qq.com
-#   @Date          : 2020/12/26 12:55 上午
-#   @Description   : 
-# ====================================================*/
 @Data
+@ToString
 public class Movie implements Serializable {
+    private static final long serialVersionUID = -1420290980296352145L;
+    private Long id;
 
+    private Long doubanId;
 
-    private static final long serialVersionUID = 4214412371530642539L;
+    private String name;
 
-    private Integer id;
-
-    private String movieName;
-
-    private String movieAlias;
+    private String alias;
 
     private String coverUrl;
 
     private Double doubanScore;
 
-    private Integer movieMins;
+    private Long doubanVote;
 
-    private String languages;
+    private Integer mins;
 
-    private String regions;
+    private Date releaseDate;
 
-    private Date releaseTime;
+    private Integer year;
 
     private Date createdTime;
 
     private Date updatedTime;
 
     private String storyline;
+
+    private String tags;
 }

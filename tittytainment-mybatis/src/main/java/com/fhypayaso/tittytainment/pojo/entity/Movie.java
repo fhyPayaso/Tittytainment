@@ -4,23 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Movie implements Serializable {
-    private Integer id;
+    private Long id;
 
-    private String movieName;
+    private Long doubanId;
 
-    private String movieAlias;
+    private String name;
+
+    private String alias;
 
     private String coverUrl;
 
     private Double doubanScore;
 
-    private Integer movieMins;
+    private Integer doubanVote;
 
-    private String languages;
+    private Integer mins;
 
-    private String regions;
+    private Date releaseDate;
 
-    private Date releaseTime;
+    private Integer year;
 
     private Date createdTime;
 
@@ -28,30 +30,40 @@ public class Movie implements Serializable {
 
     private String storyline;
 
+    private String tags;
+
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getMovieName() {
-        return movieName;
+    public Long getDoubanId() {
+        return doubanId;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName == null ? null : movieName.trim();
+    public void setDoubanId(Long doubanId) {
+        this.doubanId = doubanId;
     }
 
-    public String getMovieAlias() {
-        return movieAlias;
+    public String getName() {
+        return name;
     }
 
-    public void setMovieAlias(String movieAlias) {
-        this.movieAlias = movieAlias == null ? null : movieAlias.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias == null ? null : alias.trim();
     }
 
     public String getCoverUrl() {
@@ -70,36 +82,36 @@ public class Movie implements Serializable {
         this.doubanScore = doubanScore;
     }
 
-    public Integer getMovieMins() {
-        return movieMins;
+    public Integer getDoubanVote() {
+        return doubanVote;
     }
 
-    public void setMovieMins(Integer movieMins) {
-        this.movieMins = movieMins;
+    public void setDoubanVote(Integer doubanVote) {
+        this.doubanVote = doubanVote;
     }
 
-    public String getLanguages() {
-        return languages;
+    public Integer getMins() {
+        return mins;
     }
 
-    public void setLanguages(String languages) {
-        this.languages = languages == null ? null : languages.trim();
+    public void setMins(Integer mins) {
+        this.mins = mins;
     }
 
-    public String getRegions() {
-        return regions;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRegions(String regions) {
-        this.regions = regions == null ? null : regions.trim();
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public Date getReleaseTime() {
-        return releaseTime;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setReleaseTime(Date releaseTime) {
-        this.releaseTime = releaseTime;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public Date getCreatedTime() {
@@ -126,6 +138,14 @@ public class Movie implements Serializable {
         this.storyline = storyline == null ? null : storyline.trim();
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags == null ? null : tags.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -133,17 +153,19 @@ public class Movie implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", movieName=").append(movieName);
-        sb.append(", movieAlias=").append(movieAlias);
+        sb.append(", doubanId=").append(doubanId);
+        sb.append(", name=").append(name);
+        sb.append(", alias=").append(alias);
         sb.append(", coverUrl=").append(coverUrl);
         sb.append(", doubanScore=").append(doubanScore);
-        sb.append(", movieMins=").append(movieMins);
-        sb.append(", languages=").append(languages);
-        sb.append(", regions=").append(regions);
-        sb.append(", releaseTime=").append(releaseTime);
+        sb.append(", doubanVote=").append(doubanVote);
+        sb.append(", mins=").append(mins);
+        sb.append(", releaseDate=").append(releaseDate);
+        sb.append(", year=").append(year);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);
         sb.append(", storyline=").append(storyline);
+        sb.append(", tags=").append(tags);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
