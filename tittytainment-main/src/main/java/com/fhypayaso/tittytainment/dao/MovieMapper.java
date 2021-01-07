@@ -16,6 +16,8 @@ public interface MovieMapper {
 
     List<Movie> selectAll();
 
+    List<Movie> selectByYear(Integer year);
+
     int updateByPrimaryKey(Movie record);
 
     int deleteAll();

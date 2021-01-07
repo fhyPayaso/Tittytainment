@@ -1,11 +1,11 @@
-package com.fhypayaso.tittytainment.modules.security.dto.vo;
+package com.fhypayaso.tittytainment.base;
 
 /* ====================================================
 #
 #   @Author        : fhyPayaso
 #   @Email         : 401619823@qq.com
-#   @Date          : 2020/12/29 9:45 下午
-#   @Description   : 
+#   @Date          : 2021/1/3 5:23 下午
+#   @Description   : 参数类基类
 # ====================================================*/
-public class BaseVO {
+public class BaseQVO {
 }

@@ -2,17 +2,27 @@ package com.fhypayaso.tittytainment.modules.movie.service.impl;
 
 import com.fhypayaso.tittytainment.dao.MovieRegionMapper;
 import com.fhypayaso.tittytainment.dao.RegionMapper;
+import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieVO;
+import com.fhypayaso.tittytainment.modules.movie.dto.region.RegionVO;
+import com.fhypayaso.tittytainment.modules.movie.service.MovieService;
 import com.fhypayaso.tittytainment.modules.movie.service.RegionService;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import com.fhypayaso.tittytainment.pojo.entity.MovieRegion;
 import com.fhypayaso.tittytainment.pojo.entity.Region;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.PRIVATE_MEMBER;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /* ====================================================
 #
@@ -30,6 +40,9 @@ public class RegionServiceImpl implements RegionService {
 
     @Resource
     private MovieRegionMapper movieRegionMapper;
+
+    @Resource
+    private MovieService movieService;
 
 
     @Override
@@ -84,7 +97,50 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public List<Region> queryAll() {
-        return null;
+    public List<RegionVO> queryAll() {
+
+        List<Region> regions = regionMapper.selectAll();
+
+        List<RegionVO> voList = regions.stream()
+                .map(region -> {
+                    RegionVO vo = new RegionVO();
+                    BeanUtils.copyProperties(region, vo);
+                    return vo;
+                })
+                .collect(Collectors.toList());
+
+        return voList;
+    }
+
+    @Override
+    public List<RegionVO> queryByMovie(Long movieId) {
+
+        List<MovieRegion> movieRegionList = movieRegionMapper.selectByMovie(movieId);
+        List<RegionVO> regions = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(movieRegionList)) {
+            for (MovieRegion mr : movieRegionList) {
+                Region region = regionMapper.selectByPrimaryKey(mr.getRegionId());
+                if (region != null) {
+                    RegionVO vo = new RegionVO();
+                    BeanUtils.copyProperties(region, vo);
+                    regions.add(vo);
+                }
+            }
+        }
+        return regions;
+    }
+
+    @Override
+    public PageInfo<MovieVO> queryMovieByRegion(Long regionId, Integer offset, Integer count) throws ApiException {
+
+        PageHelper.offsetPage(offset, count);
+        List<MovieRegion> movieRegions   = movieRegionMapper.selectByRegion(regionId);
+
+        List<MovieVO> voList = new ArrayList<>();
+        for (MovieRegion mr : movieRegions) {
+            voList.add(movieService.queryById(mr.getMovieId(),false));
+        }
+
+        return new PageInfo<>(voList);
     }
 }

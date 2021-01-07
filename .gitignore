@@ -12,3 +12,5 @@ target/
 
 dataset/
 *.csv
+
+.DS_Store

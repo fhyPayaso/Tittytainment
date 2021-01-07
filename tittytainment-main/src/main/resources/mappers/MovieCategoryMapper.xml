@@ -41,6 +41,21 @@
     from ttmt_movie_category
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByMovie" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, movie_id, movie_douban_id, category_id, created_time, updated_time
+    from ttmt_movie_category
+    where movie_id = #{movieId,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectByCategory" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, movie_id, movie_douban_id, category_id, created_time, updated_time
+    from ttmt_movie_category
+    where category_id = #{categoryId,jdbcType=BIGINT}
+  </select>
+
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, movie_id, movie_douban_id, category_id, created_time, updated_time
     from ttmt_movie_category

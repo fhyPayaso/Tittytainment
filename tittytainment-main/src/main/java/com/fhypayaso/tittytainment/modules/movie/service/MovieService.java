@@ -1,9 +1,12 @@
 package com.fhypayaso.tittytainment.modules.movie.service;
 
+import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieVO;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieParam;
 import com.fhypayaso.tittytainment.pojo.entity.Filmmaker;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import com.fhypayaso.tittytainment.pojo.entity.Profession;
-import com.fhypayaso.tittytainment.pojo.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -16,6 +19,8 @@ import java.util.List;
 # ====================================================*/
 public interface MovieService {
 
+    int insert(MovieParam qvo);
+
     int insert(Movie movie);
 
     int deleteAll();
@@ -26,13 +31,16 @@ public interface MovieService {
     int deleteAllMovieFilmmaker();
 
 
-    Movie queryById(Long id);
+    MovieVO queryById(Long id, Boolean withActorInfo) throws ApiException;
 
-    Movie queryByDoubanId(Long dbId);
+    MovieVO queryByDoubanId(Long dbId, Boolean withActorInfo) throws ApiException;
 
-    int deleteById(Long id);
+    PageInfo<MovieVO> queryMovieByYear(Integer year, Integer offset, Integer count) throws ApiException;
 
-    int update(Movie movie);
+
+    void deleteById(Long id) throws ApiException;
+
+    int update(MovieParam qvo) throws ApiException;
 
     List<Movie> queryAll();
 

@@ -2,6 +2,7 @@ package com.fhypayaso.tittytainment.modules.movie.service.impl;
 
 import com.fhypayaso.tittytainment.dao.FilmmakerProfessionMapper;
 import com.fhypayaso.tittytainment.dao.ProfessionMapper;
+import com.fhypayaso.tittytainment.modules.movie.dto.ProfessionVO;
 import com.fhypayaso.tittytainment.modules.movie.service.ProfessionService;
 import com.fhypayaso.tittytainment.pojo.entity.Filmmaker;
 import com.fhypayaso.tittytainment.pojo.entity.FilmmakerProfession;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.awt.peer.PanelPeer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,9 +75,23 @@ public class ProfessionServiceImpl implements ProfessionService {
         return professionMapper.selectByName(name);
     }
 
+    /**
+     * 查询电影中所包含的职业
+     * @param movieId
+     * @return
+     */
+    @Override
+    public List<ProfessionVO> queryByMovie(Long movieId) {
+
+        List<ProfessionVO> professionList = new ArrayList<>();
+//        List<Filmmaker> filmmakerList = filmmakerProfessionMapper
+        return professionList;
+    }
+
+
     @Override
     public Profession queryById(Long id) {
-        return null;
+        return professionMapper.selectByPrimaryKey(id);
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.fhypayaso.tittytainment.modules.movie.service;
 
+import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.movie.dto.category.CategoryVO;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieVO;
 import com.fhypayaso.tittytainment.pojo.entity.Category;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -24,6 +28,7 @@ public interface CategoryService {
     int deleteAllMovieCategory();
 
 
+    List<CategoryVO> queryByMovie(Long movieId);
 
 
     Category queryById(Long id);
@@ -32,6 +37,8 @@ public interface CategoryService {
 
     int update(Category category);
 
-    List<Category> queryAll();
+    List<CategoryVO> queryAll();
+
+    PageInfo<MovieVO> queryMovieByCategory(Long categoryId, Integer offset, Integer count) throws ApiException;
 }
 

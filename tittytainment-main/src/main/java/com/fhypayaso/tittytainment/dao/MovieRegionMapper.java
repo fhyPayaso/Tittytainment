@@ -14,6 +14,10 @@ public interface MovieRegionMapper {
 
     List<MovieRegion> selectAll();
 
+    List<MovieRegion> selectByMovie(Long movieId);
+
+    List<MovieRegion> selectByRegion(Long regionId);
+
     int updateByPrimaryKey(MovieRegion record);
 
     int deleteAll();

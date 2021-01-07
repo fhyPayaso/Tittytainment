@@ -48,6 +48,22 @@
     from ttmt_movie_filmmaker
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByMovie" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, movie_id, movie_douban_id, filmmaker_id, filmmaker_douban_id, profession_id,
+           created_time, updated_time
+    from ttmt_movie_filmmaker
+    where movie_id = #{movieId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByFilmmaker" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, movie_id, movie_douban_id, filmmaker_id, filmmaker_douban_id, profession_id,
+           created_time, updated_time
+    from ttmt_movie_filmmaker
+    where filmmaker_id = #{filmmakerId,jdbcType=BIGINT}
+  </select>
+
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, movie_id, movie_douban_id, filmmaker_id, filmmaker_douban_id, profession_id, 
     created_time, updated_time

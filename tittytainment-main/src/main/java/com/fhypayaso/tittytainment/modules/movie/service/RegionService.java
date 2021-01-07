@@ -1,8 +1,11 @@
 package com.fhypayaso.tittytainment.modules.movie.service;
 
+import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieVO;
+import com.fhypayaso.tittytainment.modules.movie.dto.region.RegionVO;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
-import com.fhypayaso.tittytainment.pojo.entity.Profession;
 import com.fhypayaso.tittytainment.pojo.entity.Region;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -23,13 +26,15 @@ public interface RegionService {
 
     int deleteAllMovieRegion();
 
-
-
     Region queryById(Long id);
 
     int deleteById(Long id);
 
     int update(Region region);
 
-    List<Region> queryAll();
+    List<RegionVO> queryAll();
+
+    List<RegionVO> queryByMovie(Long movieId);
+
+    PageInfo<MovieVO> queryMovieByRegion(Long regionId, Integer offset, Integer count) throws ApiException;
 }

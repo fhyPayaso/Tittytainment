@@ -2,17 +2,28 @@ package com.fhypayaso.tittytainment.modules.movie.service.impl;
 
 import com.fhypayaso.tittytainment.dao.LanguageMapper;
 import com.fhypayaso.tittytainment.dao.MovieLanguageMapper;
+import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.movie.dto.language.LanguageVO;
+import com.fhypayaso.tittytainment.modules.movie.dto.movie.MovieVO;
 import com.fhypayaso.tittytainment.modules.movie.service.LanguageService;
+import com.fhypayaso.tittytainment.modules.movie.service.MovieService;
 import com.fhypayaso.tittytainment.pojo.entity.Language;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
+import com.fhypayaso.tittytainment.pojo.entity.MovieCategory;
 import com.fhypayaso.tittytainment.pojo.entity.MovieLanguage;
-import com.sun.org.apache.bcel.internal.generic.LADD;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /* ====================================================
 #
@@ -30,6 +41,9 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Resource
     private MovieLanguageMapper movieLanguageMapper;
+
+    @Resource
+    private MovieService movieService;
 
 
     @Override
@@ -73,6 +87,26 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
+    public List<LanguageVO> queryByMovie(Long id) {
+
+        List<MovieLanguage> movieLanguageList = movieLanguageMapper.selectByMovie(id);
+
+        List<LanguageVO> languages = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(movieLanguageList)) {
+            for (MovieLanguage ml : movieLanguageList) {
+                Language language = languageMapper.selectByPrimaryKey(ml.getLanguageId());
+                if (language != null) {
+                    LanguageVO vo = new LanguageVO();
+                    BeanUtils.copyProperties(language, vo);
+                    languages.add(vo);
+                }
+            }
+        }
+
+        return languages;
+    }
+
+    @Override
     public int deleteById(Long id) {
         return 0;
     }
@@ -83,7 +117,34 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<Language> queryAll() {
-        return null;
+    public List<LanguageVO> queryAll() {
+
+        List<Language> languages = languageMapper.selectAll();
+
+        List<LanguageVO> voList = languages.stream()
+                .map(language -> {
+                    LanguageVO vo = new LanguageVO();
+                    BeanUtils.copyProperties(language, vo);
+                    return vo;
+                })
+                .collect(Collectors.toList());
+
+        return voList;
+    }
+
+    @Override
+    public PageInfo<MovieVO> queryMovieByLanguage(Long languageId, Integer offset, Integer count) throws ApiException {
+
+        PageHelper.offsetPage(offset, count);
+
+        List<MovieLanguage> movieLanguages = movieLanguageMapper.selectByLanguage(languageId);
+        List<MovieVO> voList = new ArrayList<>();
+
+        // 查询当前类别下的所有电影
+        for (MovieLanguage mc : movieLanguages) {
+            voList.add(movieService.queryById(mc.getMovieId(),true));
+        }
+
+        return new PageInfo<>(voList);
     }
 }

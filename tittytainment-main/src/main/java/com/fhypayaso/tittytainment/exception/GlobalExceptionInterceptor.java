@@ -12,6 +12,7 @@ package com.fhypayaso.tittytainment.exception;
 import com.fhypayaso.tittytainment.api.CommonResult;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,15 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionInterceptor {
 
+
+    @ResponseBody
+    @ExceptionHandler(value = Exception.class)
+    @Order()
+    public CommonResult<String> commonExceptionHandler(Exception exception) {
+        log.error(exception.toString());
+        return CommonResult.failed(exception.getMessage());
+
+    }
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)

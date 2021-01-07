@@ -14,6 +14,10 @@ public interface MovieCategoryMapper {
 
     List<MovieCategory> selectAll();
 
+    List<MovieCategory> selectByMovie(Long movieId);
+
+    List<MovieCategory> selectByCategory(Long categoryId);
+
     int updateByPrimaryKey(MovieCategory record);
 
     int deleteAll();

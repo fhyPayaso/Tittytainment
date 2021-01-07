@@ -179,58 +179,58 @@ CREATE TABLE `ttmt_movie_region`
   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-地区表';
 
 
-#
-# -- ----------------------------
-# -- Table structure for filmmaker
-# -- ----------------------------
-# DROP TABLE IF EXISTS `ttmt_filmmaker`;
-# CREATE TABLE `ttmt_filmmaker`
-# (
-#     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-#     `douban_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣演员id',
-#     `name`          varchar(100)        NOT NULL DEFAULT '' COMMENT '演员名称',
-#     `name_en`       varchar(1000)                 DEFAULT '' COMMENT '英文全名',
-#     `name_zh`       varchar(1000)                 DEFAULT '' COMMENT '中文全名',
-#     `sex`           varchar(10)         NOT NULL DEFAULT '' COMMENT '性别',
-#     `birth`         datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '出生日期',
-#     `birth_place`   varchar(100)                 DEFAULT '' COMMENT '出生地点',
-#     `constellation` varchar(10)                  DEFAULT '' COMMENT '星座',
-#     `biography`     text(1000) COMMENT '人物简介',
-#     `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-#     `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-#     PRIMARY KEY (`id`)
-# ) ENGINE = InnoDB
-#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影演员与导演';
-#
-# -- ----------------------------
-# -- Table structure for profession
-# -- ----------------------------
-# DROP TABLE IF EXISTS `ttmt_profession`;
-# CREATE TABLE `ttmt_profession`
-# (
-#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-#     `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '职业名称',
-#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-#     PRIMARY KEY (`id`)
-# ) ENGINE = InnoDB
-#   DEFAULT CHARSET = utf8mb4 COMMENT ='职业表';
-#
-# -- ----------------------------
-# -- Table structure for profession-movie
-# -- ----------------------------
-# DROP TABLE IF EXISTS `ttmt_filmmaker_profession`;
-# CREATE TABLE `ttmt_filmmaker_profession`
-# (
-#     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-#     `filmmaker_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '演员id',
-#     `filmmaker_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '演员豆瓣id',
-#     `profession_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '职业id',
-#     `created_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-#     `updated_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-#     PRIMARY KEY (`id`)
-# ) ENGINE = InnoDB
-#   DEFAULT CHARSET = utf8mb4 COMMENT ='职业-演员表';
+
+-- ----------------------------
+-- Table structure for filmmaker
+-- ----------------------------
+DROP TABLE IF EXISTS `ttmt_filmmaker`;
+CREATE TABLE `ttmt_filmmaker`
+(
+    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `douban_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣演员id',
+    `name`          varchar(100)        NOT NULL DEFAULT '' COMMENT '演员名称',
+    `name_en`       varchar(1000)                DEFAULT '' COMMENT '英文全名',
+    `name_zh`       varchar(1000)                DEFAULT '' COMMENT '中文全名',
+    `sex`           varchar(10)         NOT NULL DEFAULT '' COMMENT '性别',
+    `birth`         datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '出生日期',
+    `birth_place`   varchar(100)                 DEFAULT '' COMMENT '出生地点',
+    `constellation` varchar(10)                  DEFAULT '' COMMENT '星座',
+    `biography`     text(1000) COMMENT '人物简介',
+    `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='电影演员与导演';
+
+-- ----------------------------
+-- Table structure for profession
+-- ----------------------------
+DROP TABLE IF EXISTS `ttmt_profession`;
+CREATE TABLE `ttmt_profession`
+(
+    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '职业名称',
+    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='职业表';
+
+-- ----------------------------
+-- Table structure for profession-movie
+-- ----------------------------
+DROP TABLE IF EXISTS `ttmt_filmmaker_profession`;
+CREATE TABLE `ttmt_filmmaker_profession`
+(
+    `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `filmmaker_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '演员id',
+    `filmmaker_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '演员豆瓣id',
+    `profession_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '职业id',
+    `created_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='职业-演员表';
 
 -- ----------------------------
 -- Table structure for filmmaker-movie
@@ -249,9 +249,6 @@ CREATE TABLE `ttmt_movie_filmmaker`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-演员关系表';
-
-
-
 
 
 

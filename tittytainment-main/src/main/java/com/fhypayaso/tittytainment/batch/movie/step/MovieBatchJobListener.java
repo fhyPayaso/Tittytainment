@@ -37,14 +37,14 @@ public class MovieBatchJobListener implements JobExecutionListener {
     public void beforeJob(JobExecution jobExecution) {
         log.info("movie before job !");
 
-        movieService.deleteAll();
-        movieService.deleteAllMovieFilmmaker();
-        regionService.deleteAll();
-        regionService.deleteAllMovieRegion();
-        languageService.deleteAll();
-        languageService.deleteAllMovieLanguage();
-        categoryService.deleteAll();
-        categoryService.deleteAllMovieCategory();
+//        movieService.deleteAll();
+//        movieService.deleteAllMovieFilmmaker();
+//        regionService.deleteAll();
+//        regionService.deleteAllMovieRegion();
+//        languageService.deleteAll();
+//        languageService.deleteAllMovieLanguage();
+//        categoryService.deleteAll();
+//        categoryService.deleteAllMovieCategory();
 
         log.info("clear all table done !");
     }

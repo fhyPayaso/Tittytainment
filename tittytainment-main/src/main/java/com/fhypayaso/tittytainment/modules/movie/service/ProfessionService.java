@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.modules.movie.service;
 
+import com.fhypayaso.tittytainment.modules.movie.dto.ProfessionVO;
 import com.fhypayaso.tittytainment.pojo.entity.Filmmaker;
 import com.fhypayaso.tittytainment.pojo.entity.Language;
 import com.fhypayaso.tittytainment.pojo.entity.Profession;
@@ -24,6 +25,9 @@ public interface ProfessionService {
     int deleteAllFilmmakerProfession();
 
     Profession queryByName(String name);
+
+    List<ProfessionVO> queryByMovie(Long movieId);
+
 
 
     Profession queryById(Long id);

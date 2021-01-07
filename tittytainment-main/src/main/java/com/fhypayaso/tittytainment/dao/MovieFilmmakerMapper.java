@@ -12,6 +12,10 @@ public interface MovieFilmmakerMapper {
 
     MovieFilmmaker selectByPrimaryKey(Long id);
 
+    List<MovieFilmmaker> selectByMovie(Long movieId);
+
+    List<MovieFilmmaker> selectByFilmmaker(Long filmmakerId);
+
     List<MovieFilmmaker> selectAll();
 
     int updateByPrimaryKey(MovieFilmmaker record);
