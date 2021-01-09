@@ -2,6 +2,7 @@ package com.fhypayaso.tittytainment.modules.security.service.impl;
 
 import com.fhypayaso.tittytainment.dao.UserMapper;
 import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.security.dto.JwtUser;
 import com.fhypayaso.tittytainment.modules.security.dto.Permission;
 import com.fhypayaso.tittytainment.modules.security.dto.vo.*;
 import com.fhypayaso.tittytainment.modules.security.service.UserRoleService;
@@ -163,6 +164,16 @@ public class UserServiceImpl implements UserService {
         return userVo;
     }
 
+    @Override
+    public UserVO getUserInfoById(Integer id) {
+
+
+        UserVO vo = new UserVO();
+        User user = userMapper.selectByPrimaryKey(id);
+        BeanUtils.copyProperties(user, vo);
+        return vo;
+    }
+
 
     /**
      * 检查验证码是否正确
@@ -180,6 +191,25 @@ public class UserServiceImpl implements UserService {
         } else {
             ApiException.with("验证码错误");
         }
+    }
+
+
+    @Override
+    public Long currentUserId() throws ApiException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ApiException.when(auth == null, "认证失败");
+
+        if (auth.getPrincipal() instanceof UserDetails) {
+            UserDetails details = (UserDetails) auth.getPrincipal();
+            if (details instanceof JwtUser) {
+                User user = ((JwtUser) details).getUser();
+                if (user != null) {
+                    return Long.valueOf(user.getId());
+                }
+            }
+        }
+        throw new ApiException("认证失败");
     }
 
 

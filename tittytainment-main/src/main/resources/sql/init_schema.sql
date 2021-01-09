@@ -56,202 +56,182 @@
 # ) ENGINE = InnoDB
 #   DEFAULT CHARSET = utf8mb4 COMMENT ='用户-角色关系表';
 
-
--- ----------------------------
--- Table structure for movie
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_movie`;
-CREATE TABLE `ttmt_movie`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `douban_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣id',
-    `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '电影名称',
-    `alias`        varchar(100)                 DEFAULT '' COMMENT '电影别名',
-    `cover_url`    varchar(200)                 DEFAULT '' COMMENT '电影封面地址',
-    `douban_score` double unsigned              DEFAULT 0 COMMENT '豆瓣评分',
-    `douban_vote`  int(10) unsigned             DEFAULT 0 COMMENT '豆瓣打分人数',
-    `mins`         int(5) unsigned              DEFAULT 0 COMMENT '电影时长(min)',
-    `release_date` datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '电影上映时间',
-    `year`         int(5) unsigned              DEFAULT 0 COMMENT '电影所属年份(比上映时间更全)',
-    `storyline`    text(1000) COMMENT '电影情节',
-    `tags`         text(1000) COMMENT '标签',
-    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影表';
-
-############################ movie - category ###########################
-
--- ----------------------------
--- Table structure for category
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_category`;
-CREATE TABLE `ttmt_category`
-(
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `category_name` varchar(100)        NOT NULL DEFAULT '' COMMENT '分类名称',
-    `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='分类表';
-
--- ----------------------------
--- Table structure for movie-category
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_movie_category`;
-CREATE TABLE `ttmt_movie_category`
-(
-    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
-    `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
-    `category_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '分类id',
-    `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影-分类表';
-
-
-############################ movie - language ###########################
-
--- ----------------------------
--- Table structure for language
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_language`;
-CREATE TABLE `ttmt_language`
-(
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `language_name` varchar(100)        NOT NULL DEFAULT '' COMMENT '语言名称',
-    `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='语言表';
-
--- ----------------------------
--- Table structure for movie-language
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_movie_language`;
-CREATE TABLE `ttmt_movie_language`
-(
-    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
-    `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
-    `language_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '语言id',
-    `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影-分类表';
-
-############################ movie - region ###########################
-
--- ----------------------------
--- Table structure for region
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_region`;
-CREATE TABLE `ttmt_region`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `region_name`  varchar(100)        NOT NULL DEFAULT '' COMMENT '地区名称',
-    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='地区表';
-
--- ----------------------------
--- Table structure for movie-region
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_movie_region`;
-CREATE TABLE `ttmt_movie_region`
-(
-    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
-    `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
-    `region_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '地区id',
-    `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影-地区表';
-
-
-
--- ----------------------------
--- Table structure for filmmaker
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_filmmaker`;
-CREATE TABLE `ttmt_filmmaker`
-(
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `douban_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣演员id',
-    `name`          varchar(100)        NOT NULL DEFAULT '' COMMENT '演员名称',
-    `name_en`       varchar(1000)                DEFAULT '' COMMENT '英文全名',
-    `name_zh`       varchar(1000)                DEFAULT '' COMMENT '中文全名',
-    `sex`           varchar(10)         NOT NULL DEFAULT '' COMMENT '性别',
-    `birth`         datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '出生日期',
-    `birth_place`   varchar(100)                 DEFAULT '' COMMENT '出生地点',
-    `constellation` varchar(10)                  DEFAULT '' COMMENT '星座',
-    `biography`     text(1000) COMMENT '人物简介',
-    `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影演员与导演';
-
--- ----------------------------
--- Table structure for profession
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_profession`;
-CREATE TABLE `ttmt_profession`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '职业名称',
-    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='职业表';
-
--- ----------------------------
--- Table structure for profession-movie
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_filmmaker_profession`;
-CREATE TABLE `ttmt_filmmaker_profession`
-(
-    `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `filmmaker_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '演员id',
-    `filmmaker_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '演员豆瓣id',
-    `profession_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '职业id',
-    `created_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='职业-演员表';
-
--- ----------------------------
--- Table structure for filmmaker-movie
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_movie_filmmaker`;
-CREATE TABLE `ttmt_movie_filmmaker`
-(
-    `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `movie_id`            bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
-    `movie_douban_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
-    `filmmaker_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '演员id',
-    `filmmaker_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '演员豆瓣id',
-    `profession_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '职业id',
-    `created_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='电影-演员关系表';
-
-
-
+#
+# -- ----------------------------
+# -- Table structure for movie
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_movie`;
+# CREATE TABLE `ttmt_movie`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `douban_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣id',
+#     `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '电影名称',
+#     `alias`        varchar(100)                 DEFAULT '' COMMENT '电影别名',
+#     `cover_url`    varchar(200)                 DEFAULT '' COMMENT '电影封面地址',
+#     `douban_score` double unsigned              DEFAULT 0 COMMENT '豆瓣评分',
+#     `douban_vote`  int(10) unsigned             DEFAULT 0 COMMENT '豆瓣打分人数',
+#     `mins`         int(5) unsigned              DEFAULT 0 COMMENT '电影时长(min)',
+#     `release_date` datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '电影上映时间',
+#     `year`         int(5) unsigned              DEFAULT 0 COMMENT '电影所属年份(比上映时间更全)',
+#     `storyline`    text(1000) COMMENT '电影情节',
+#     `tags`         text(1000) COMMENT '标签',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影表';
+#
+# ############################ movie - category ###########################
+#
+# -- ----------------------------
+# -- Table structure for category
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_category`;
+# CREATE TABLE `ttmt_category`
+# (
+#     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `category_name` varchar(100)        NOT NULL DEFAULT '' COMMENT '分类名称',
+#     `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='分类表';
+#
+# -- ----------------------------
+# -- Table structure for movie-category
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_movie_category`;
+# CREATE TABLE `ttmt_movie_category`
+# (
+#     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
+#     `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
+#     `category_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '分类id',
+#     `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-分类表';
+#
+#
+# ############################ movie - language ###########################
+#
+# -- ----------------------------
+# -- Table structure for language
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_language`;
+# CREATE TABLE `ttmt_language`
+# (
+#     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `language_name` varchar(100)        NOT NULL DEFAULT '' COMMENT '语言名称',
+#     `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='语言表';
+#
+# -- ----------------------------
+# -- Table structure for movie-language
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_movie_language`;
+# CREATE TABLE `ttmt_movie_language`
+# (
+#     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
+#     `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
+#     `language_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '语言id',
+#     `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-分类表';
+#
+# ############################ movie - region ###########################
+#
+# -- ----------------------------
+# -- Table structure for region
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_region`;
+# CREATE TABLE `ttmt_region`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `region_name`  varchar(100)        NOT NULL DEFAULT '' COMMENT '地区名称',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='地区表';
+#
+# -- ----------------------------
+# -- Table structure for movie-region
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_movie_region`;
+# CREATE TABLE `ttmt_movie_region`
+# (
+#     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
+#     `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
+#     `region_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '地区id',
+#     `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-地区表';
+#
+#
+#
+# -- ----------------------------
+# -- Table structure for filmmaker
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_filmmaker`;
+# CREATE TABLE `ttmt_filmmaker`
+# (
+#     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `douban_id`     bigint(20) unsigned NOT NULL default 0 COMMENT '豆瓣演员id',
+#     `name`          varchar(100)        NOT NULL DEFAULT '' COMMENT '演员名称',
+#     `name_en`       varchar(1000)                DEFAULT '' COMMENT '英文全名',
+#     `name_zh`       varchar(1000)                DEFAULT '' COMMENT '中文全名',
+#     `sex`           varchar(10)         NOT NULL DEFAULT '' COMMENT '性别',
+#     `birth`         datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '出生日期',
+#     `birth_place`   varchar(100)                 DEFAULT '' COMMENT '出生地点',
+#     `constellation` varchar(10)                  DEFAULT '' COMMENT '星座',
+#     `biography`     text(1000) COMMENT '人物简介',
+#     `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='电影演员与导演';
+#
+# -- ----------------------------
+# -- Table structure for profession
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_profession`;
+# CREATE TABLE `ttmt_profession`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `name`         varchar(100)        NOT NULL DEFAULT '' COMMENT '职业名称',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='职业表';
+#
+# -- ----------------------------
+# -- Table structure for profession-movie
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_filmmaker_profession`;
+# CREATE TABLE `ttmt_filmmaker_profession`
+# (
+#     `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `filmmaker_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '演员id',
+#     `filmmaker_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '演员豆瓣id',
+#     `profession_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '职业id',
+#     `created_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`        timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='职业-演员表';
+#
 # -- ----------------------------
 # -- Table structure for filmmaker-movie
 # -- ----------------------------
@@ -271,6 +251,61 @@ CREATE TABLE `ttmt_movie_filmmaker`
 #   DEFAULT CHARSET = utf8mb4 COMMENT ='电影-演员关系表';
 
 
+-- ----------------------------
+-- Table structure for filmmaker-movie
+-- ----------------------------
+DROP TABLE IF EXISTS `ttmt_movie_user`;
+CREATE TABLE `ttmt_movie_user`
+(
+    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `user_id`         bigint(20) unsigned NOT NULL default 0 COMMENT '用户id',
+    `movie_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '电影id',
+    `movie_douban_id` bigint(20) unsigned NOT NULL default 0 COMMENT '电影豆瓣id',
+    `wanna_see`       tinyint(1) unsigned NOT NULL default 0 COMMENT '是否想看该电影',
+    `have_seen`       tinyint(1) unsigned NOT NULL default 0 COMMENT '是否看过该电影',
+    `score`           double unsigned              default 0 COMMENT '豆瓣评分',
+    `wanna_see_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '想看电影修改时间(想看/取消)',
+    `have_seen_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '看过电影时间',
+    `score_time`      datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '给电影打分时间',
+    `created_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time`    timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='电影-用户关系表';
+
+
+
+-- ----------------------------
+-- Table structure for user-follow
+-- ----------------------------
+DROP TABLE IF EXISTS `ttmt_user_follow`;
+CREATE TABLE `ttmt_user_follow`
+(
+    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `user_id`        bigint(20) unsigned NOT NULL default 0 COMMENT '用户id',
+    `follow_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '被关注用户id',
+    `follow`         tinyint(1) unsigned NOT NULL default 0 COMMENT '是否处于关注状态',
+    `created_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户关注表';
+
+
+
+
+
+-- ----------------------------
+-- 主题表topic：类似圈子， 每个电影自动成立一个主题， (目前仅支持管理员创建主题)
+-- 帖子表post：依附于某个主题，主题下可以有多个帖子, 每个电影默认生成一个帖子， 用于存放短评
+-- 评论表comment: 依附于某个帖子, 已盖楼的形式进行发言(是否支持图片)
+-- 回复表reply: 依附于某条评论，
+-- 点赞表: 帖子点赞，评论点赞(回复暂时不设置点赞)
+
+-- 主题帖子关系表
+-- 帖子评论关系表
+-- 评论回复关系表
+-- ----------------------------
 
 
 

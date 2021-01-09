@@ -29,15 +29,15 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionInterceptor {
 
-
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
-    @Order()
-    public CommonResult<String> commonExceptionHandler(Exception exception) {
-        log.error(exception.toString());
-        return CommonResult.failed(exception.getMessage());
-
-    }
+//
+//    @ResponseBody
+//    @ExceptionHandler(value = Exception.class)
+//    @Order()
+//    public CommonResult<String> commonExceptionHandler(Exception exception) {
+//        log.error(exception.toString());
+//        return CommonResult.failed(exception.toString());
+//
+//    }
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)

@@ -33,5 +33,9 @@ public interface UserService {
 
     UserVO getUserInfoByToken();
 
+    UserVO getUserInfoById(Integer id);
+
+    Long currentUserId() throws ApiException;
+
 
 }

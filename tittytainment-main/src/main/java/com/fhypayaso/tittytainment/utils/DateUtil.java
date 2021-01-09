@@ -49,4 +49,9 @@ public class DateUtil {
     }
 
 
+    public static Date currentDate() {
+        return new Date(System.currentTimeMillis());
+    }
+
+
 }
