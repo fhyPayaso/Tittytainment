@@ -40,43 +40,4 @@
     select id, movie_id, movie_douban_id, region_id, created_time, updated_time
     from ttmt_movie_region
   </select>
-  <resultMap id="BaseResultMap" type="com.fhypayaso.tittytainment.pojo.entity.MovieRegion">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="movie_id" jdbcType="BIGINT" property="movieId" />
-    <result column="movie_douban_id" jdbcType="BIGINT" property="movieDoubanId" />
-    <result column="region_id" jdbcType="BIGINT" property="regionId" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ttmt_movie_region
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.fhypayaso.tittytainment.pojo.entity.MovieRegion">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into ttmt_movie_region (movie_id, movie_douban_id, region_id, 
-      created_time, updated_time)
-    values (#{movieId,jdbcType=BIGINT}, #{movieDoubanId,jdbcType=BIGINT}, #{regionId,jdbcType=BIGINT}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.fhypayaso.tittytainment.pojo.entity.MovieRegion">
-    update ttmt_movie_region
-    set movie_id = #{movieId,jdbcType=BIGINT},
-      movie_douban_id = #{movieDoubanId,jdbcType=BIGINT},
-      region_id = #{regionId,jdbcType=BIGINT},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, movie_id, movie_douban_id, region_id, created_time, updated_time
-    from ttmt_movie_region
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, movie_id, movie_douban_id, region_id, created_time, updated_time
-    from ttmt_movie_region
-  </select>
 </mapper>

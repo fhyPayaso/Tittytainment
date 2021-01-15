@@ -36,39 +36,4 @@
     select id, language_name, created_time, updated_time
     from ttmt_language
   </select>
-  <resultMap id="BaseResultMap" type="com.fhypayaso.tittytainment.pojo.entity.Language">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="language_name" jdbcType="VARCHAR" property="languageName" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ttmt_language
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.fhypayaso.tittytainment.pojo.entity.Language">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into ttmt_language (language_name, created_time, updated_time
-      )
-    values (#{languageName,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.fhypayaso.tittytainment.pojo.entity.Language">
-    update ttmt_language
-    set language_name = #{languageName,jdbcType=VARCHAR},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, language_name, created_time, updated_time
-    from ttmt_language
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, language_name, created_time, updated_time
-    from ttmt_language
-  </select>
 </mapper>

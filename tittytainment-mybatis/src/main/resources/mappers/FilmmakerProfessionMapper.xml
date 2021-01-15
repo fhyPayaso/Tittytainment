@@ -40,43 +40,4 @@
     select id, filmmaker_id, filmmaker_douban_id, profession_id, created_time, updated_time
     from ttmt_filmmaker_profession
   </select>
-  <resultMap id="BaseResultMap" type="com.fhypayaso.tittytainment.pojo.entity.FilmmakerProfession">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="filmmaker_id" jdbcType="BIGINT" property="filmmakerId" />
-    <result column="filmmaker_douban_id" jdbcType="BIGINT" property="filmmakerDoubanId" />
-    <result column="profession_id" jdbcType="BIGINT" property="professionId" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from ttmt_filmmaker_profession
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.fhypayaso.tittytainment.pojo.entity.FilmmakerProfession">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into ttmt_filmmaker_profession (filmmaker_id, filmmaker_douban_id, profession_id, 
-      created_time, updated_time)
-    values (#{filmmakerId,jdbcType=BIGINT}, #{filmmakerDoubanId,jdbcType=BIGINT}, #{professionId,jdbcType=BIGINT}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.fhypayaso.tittytainment.pojo.entity.FilmmakerProfession">
-    update ttmt_filmmaker_profession
-    set filmmaker_id = #{filmmakerId,jdbcType=BIGINT},
-      filmmaker_douban_id = #{filmmakerDoubanId,jdbcType=BIGINT},
-      profession_id = #{professionId,jdbcType=BIGINT},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, filmmaker_id, filmmaker_douban_id, profession_id, created_time, updated_time
-    from ttmt_filmmaker_profession
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, filmmaker_id, filmmaker_douban_id, profession_id, created_time, updated_time
-    from ttmt_filmmaker_profession
-  </select>
 </mapper>
