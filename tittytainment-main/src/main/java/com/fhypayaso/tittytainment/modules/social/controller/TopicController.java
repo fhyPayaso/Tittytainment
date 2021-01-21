@@ -5,7 +5,6 @@ import com.fhypayaso.tittytainment.exception.ApiException;
 import com.fhypayaso.tittytainment.modules.social.dto.topic.TopicParam;
 import com.fhypayaso.tittytainment.modules.social.dto.topic.TopicVO;
 import com.fhypayaso.tittytainment.modules.social.service.TopicService;
-import com.fhypayaso.tittytainment.pojo.entity.Topic;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +35,7 @@ public class TopicController {
     }
 
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperation("更新话题")
     CommonResult<Void> updateTopic(@RequestBody TopicParam param) throws ApiException {
         topicService.updateTopic(param);

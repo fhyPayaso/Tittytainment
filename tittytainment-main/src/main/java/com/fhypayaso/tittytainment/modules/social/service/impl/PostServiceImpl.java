@@ -9,6 +9,7 @@ import com.fhypayaso.tittytainment.modules.social.config.PostType;
 import com.fhypayaso.tittytainment.modules.social.dto.post.PostParam;
 import com.fhypayaso.tittytainment.modules.social.dto.post.PostVO;
 import com.fhypayaso.tittytainment.modules.social.service.CommentService;
+import com.fhypayaso.tittytainment.modules.social.service.LikeService;
 import com.fhypayaso.tittytainment.modules.social.service.PostService;
 import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import com.fhypayaso.tittytainment.pojo.entity.Post;
@@ -16,12 +17,9 @@ import com.fhypayaso.tittytainment.pojo.entity.Topic;
 import com.fhypayaso.tittytainment.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
-import javafx.geometry.Pos;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -53,6 +51,9 @@ public class PostServiceImpl implements PostService {
     @Resource
     private CommentService commentService;
 
+    @Resource
+    private LikeService likeService;
+
 
     @Override
     public void createPost(PostParam param) throws ApiException {
@@ -71,12 +72,19 @@ public class PostServiceImpl implements PostService {
         Post post = new Post();
         BeanUtils.copyProperties(param, post);
         Long uid = userService.currentUserId();
+        post.setPostType(param.getPostType() == 1);
         post.setCreateUserId(uid);
+        post.setCommentNum(0L);
+        post.setLikeNum(0L);
         post.setLastCommentTime(DateUtil.currentDate());
         post.setCreatedTime(DateUtil.currentDate());
         post.setUpdatedTime(DateUtil.currentDate());
 
         ApiException.when(postMapper.insert(post) == 0, "发帖失败");
+
+        // 更新帖子数量
+        topic.setPostNum(topic.getPostNum() + 1);
+        topicMapper.updateByPrimaryKey(topic);
     }
 
     @Override
@@ -137,6 +145,7 @@ public class PostServiceImpl implements PostService {
                 .map(post -> {
                     PostVO vo = new PostVO();
                     BeanUtils.copyProperties(post, vo);
+                    vo.setLikeNum(likeService.queryPostLikeNum(post.getId()));
                     return vo;
                 })
                 .collect(Collectors.toList());

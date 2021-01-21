@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.modules.social.dto.topic;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fhypayaso.tittytainment.base.BaseQVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -25,10 +26,13 @@ public class TopicParam extends BaseQVO {
     @NotBlank
     private String name;
 
+    @JsonProperty("topic_abstract")
     private String topicAbstract;
 
     @ApiParam("话题类型: 0为常规话题，1为电影话题")
+    @JsonProperty("topic_type")
     private Integer topicType;
 
+    @JsonProperty("movie_id")
     private Long movieId;
 }

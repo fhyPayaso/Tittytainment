@@ -56,6 +56,7 @@ public class TopicServiceImpl implements TopicService {
             Movie movie = movieMapper.selectByPrimaryKey(param.getMovieId());
             ApiException.when(movie == null, "依附的电影不存在");
             topic.setName(movie.getName());
+            topic.setMovieId(movie.getId());
             topic.setTopicAbstract(movie.getName() + "默认话题");
 
         } else {
@@ -66,6 +67,7 @@ public class TopicServiceImpl implements TopicService {
         topic.setTopicType(param.getTopicType());
         topic.setCreateUserId(userId);
         topic.setUserNum(1L);
+        topic.setPostNum(0L);
         topic.setCreatedTime(DateUtil.currentDate());
         topic.setUpdatedTime(DateUtil.currentDate());
         ApiException.when(topicMapper.insert(topic) == 0, "话题创建失败");

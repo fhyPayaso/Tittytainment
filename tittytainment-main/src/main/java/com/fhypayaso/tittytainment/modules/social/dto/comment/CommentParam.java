@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.modules.social.dto.comment;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ public class CommentParam {
 
     private Long id;
 
+    @JsonProperty("post_id")
     private Long postId;
 
     private String content;

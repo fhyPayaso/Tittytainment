@@ -18,6 +18,8 @@ public class Comment implements Serializable {
 
     private Long likeNum;
 
+    private Long replyNum;
+
     private Boolean status;
 
     private Date createdTime;

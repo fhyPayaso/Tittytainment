@@ -183,7 +183,7 @@ public class UserServiceImpl implements UserService {
      * @throws ApiException
      */
     private void checkCaptcha(String phone, String captcha) throws ApiException {
-        String captchaCache = (String) redisUtil.getValue(phone);
+        String captchaCache = redisUtil.getStrValue(phone);
         ApiException.when(StringUtils.isEmpty(captchaCache), "未发送验证码或已过期");
         if (captchaCache.equals(captcha)) {
             // 验证成功后，验证码失效

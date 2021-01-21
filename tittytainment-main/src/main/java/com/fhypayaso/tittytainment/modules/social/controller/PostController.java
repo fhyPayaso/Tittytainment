@@ -35,7 +35,7 @@ public class PostController {
         return CommonResult.success("帖子发表成功");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperation("更新帖子内容")
     CommonResult<Void> update(@RequestBody PostParam param) throws ApiException {
         postService.updatePost(param);

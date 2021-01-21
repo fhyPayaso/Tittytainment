@@ -1,30 +1,26 @@
-package com.fhypayaso.tittytainment.modules.social.dto.comment;
+package com.fhypayaso.tittytainment.modules.social.dto.like;
 
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 /* ====================================================
 #
 #   @Author        : fhyPayaso
 #   @Email         : 401619823@qq.com
-#   @Date          : 2021/1/10 11:15 下午
+#   @Date          : 2021/1/21 1:26 上午
 #   @Description   : 
 # ====================================================*/
 @Data
 @ToString
-public class CommentVO {
+public class LikeNumDTO {
 
-    private Long id;
+    private Integer type;
 
     private Long postId;
 
-    private Long userId;
+    private Long commentId;
 
     private Long likeNum;
-
-    private Long replyNum;
-
-    private String content;
 }

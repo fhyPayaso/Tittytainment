@@ -300,106 +300,107 @@
 ##
 #############################################
 
--- ----------------------------
--- Table structure for topic
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_topic`;
-CREATE TABLE `ttmt_topic`
-(
-    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `name`           varchar(100)        NOT NULL DEFAULT '' COMMENT '主题名称',
-    `topic_type`     int unsigned        NOT NULL default 0 COMMENT '0为常规主题, 1为电影的默认主题',
-    `movie_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '如果是电影的默认主题, 需要对应电影id',
-    `create_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '若为常规主题, 则需要创建人id',
-    `post_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '帖子数量',
-    `topic_abstract` longtext COMMENT '主题内容介绍',
-    `user_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '关注用户数量',
-    `created_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='主题表';
-
-
--- ----------------------------
--- Table structure for post
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_post`;
-CREATE TABLE `ttmt_post`
-(
-    `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `title`             varchar(100)        NOT NULL DEFAULT '' COMMENT '帖子标题',
-    `topic_id`          bigint(20) unsigned NOT NULL default 0 COMMENT '对应的主题id',
-    `content`           longtext COMMENT '帖子内容(一楼内容), 里面可能包含图片, 后台不进行处理',
-    `post_type`         int unsigned        NOT NULL default 0 COMMENT '0为常规帖子, 1 为电影默认帖子',
-    `movie_id`          bigint(20) unsigned NOT NULL default 0 COMMENT '如果是电影的默认主题, 需要对应电影id',
-    `create_user_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '如果不是电影默认主题, 则需要发帖人id',
-    `like_num`          bigint(20) unsigned NOT NULL default 0 COMMENT '点赞数量',
-    `comment_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '评论数量',
-    `last_comment_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新评论时间',
-    `created_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='帖子表';
-
--- ----------------------------
--- Table structure for comment
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_comment`;
-CREATE TABLE `ttmt_comment`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `post_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '对应的主题id',
-    `content`      longtext COMMENT '评论内容',
-    `user_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '评论者id',
-    `like_num`     bigint(20) unsigned NOT NULL default 0 COMMENT '点赞数量',
-    `status`       tinyint(1) unsigned NOT NULL default 0 COMMENT '0为删除状态, 1为生效状态',
-    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='评论表';
-
-
--- ----------------------------
--- Table structure for reply
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_reply`;
-CREATE TABLE `ttmt_reply`
-(
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `reply_type`    int unsigned        NOT NULL default 0 COMMENT '0回复评论, 1为对回复回复',
-    `comment_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '回复的评论id',
-    `reply_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '回复的回复id',
-    `content`       longtext COMMENT '回复内容',
-    `user_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '回复者id',
-    `reply_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '回复的人id',
-    `status`        tinyint(1) unsigned NOT NULL default 0 COMMENT '0为删除状态, 1为生效状态',
-    `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='回复表';
-
-
--- ----------------------------
--- Table structure for like
--- ----------------------------
-DROP TABLE IF EXISTS `ttmt_like`;
-CREATE TABLE `ttmt_like`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `type`         int unsigned        NOT NULL default 0 COMMENT '0为帖子点赞, 1为评论点赞',
-    `post_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '点赞的帖子id',
-    `comment_id`   bigint(20) unsigned NOT NULL default 0 COMMENT '点赞的评论id',
-    `user_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '点赞者id',
-    `status`       tinyint(1) unsigned NOT NULL default 0 COMMENT '0取消点赞, 1为点赞生效',
-    `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='点赞表';
+# -- ----------------------------
+# -- Table structure for topic
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_topic`;
+# CREATE TABLE `ttmt_topic`
+# (
+#     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `name`           varchar(100)        NOT NULL DEFAULT '' COMMENT '主题名称',
+#     `topic_type`     int unsigned        NOT NULL default 0 COMMENT '0为常规主题, 1为电影的默认主题',
+#     `movie_id`       bigint(20) unsigned          default 0 COMMENT '如果是电影的默认主题, 需要对应电影id',
+#     `create_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '若为常规主题, 则需要创建人id',
+#     `post_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '帖子数量',
+#     `topic_abstract` longtext COMMENT '主题内容介绍',
+#     `user_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '关注用户数量',
+#     `created_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`   timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='主题表';
+#
+#
+# -- ----------------------------
+# -- Table structure for post
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_post`;
+# CREATE TABLE `ttmt_post`
+# (
+#     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `title`             varchar(100)        NOT NULL DEFAULT '' COMMENT '帖子标题',
+#     `topic_id`          bigint(20) unsigned NOT NULL default 0 COMMENT '对应的主题id',
+#     `content`           longtext COMMENT '帖子内容(一楼内容), 里面可能包含图片, 后台不进行处理',
+#     `post_type`         int unsigned        NOT NULL default 0 COMMENT '0为常规帖子, 1 为电影默认帖子',
+#     `movie_id`          bigint(20) unsigned NOT NULL default 0 COMMENT '如果是电影的默认主题, 需要对应电影id',
+#     `create_user_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '如果不是电影默认主题, 则需要发帖人id',
+#     `like_num`          bigint(20) unsigned NOT NULL default 0 COMMENT '点赞数量',
+#     `comment_num`       bigint(20) unsigned NOT NULL default 0 COMMENT '评论数量',
+#     `last_comment_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最新评论时间',
+#     `created_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='帖子表';
+#
+# -- ----------------------------
+# -- Table structure for comment
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_comment`;
+# CREATE TABLE `ttmt_comment`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `post_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '对应的主题id',
+#     `content`      longtext COMMENT '评论内容',
+#     `user_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '评论者id',
+#     `like_num`     bigint(20) unsigned NOT NULL default 0 COMMENT '点赞数量',
+#     `reply_num`    bigint(20) unsigned NOT NULL default 0 COMMENT '回复数量',
+#     `status`       tinyint(1) unsigned NOT NULL default 0 COMMENT '0为删除状态, 1为生效状态',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='评论表';
+#
+#
+# -- ----------------------------
+# -- Table structure for reply
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_reply`;
+# CREATE TABLE `ttmt_reply`
+# (
+#     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `reply_type`    int unsigned        NOT NULL default 0 COMMENT '0回复评论, 1为对回复回复',
+#     `comment_id`    bigint(20) unsigned NOT NULL default 0 COMMENT '回复的评论id',
+#     `reply_id`      bigint(20) unsigned          default 0 COMMENT '回复的回复id',
+#     `content`       longtext COMMENT '回复内容',
+#     `user_id`       bigint(20) unsigned NOT NULL default 0 COMMENT '回复者id',
+#     `reply_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '回复的人id',
+#     `status`        tinyint(1) unsigned NOT NULL default 0 COMMENT '0为删除状态, 1为生效状态',
+#     `created_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time`  timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='回复表';
+#
+#
+# -- ----------------------------
+# -- Table structure for like
+# -- ----------------------------
+# DROP TABLE IF EXISTS `ttmt_like`;
+# CREATE TABLE `ttmt_like`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `type`         int unsigned        NOT NULL default 0 COMMENT '0为帖子点赞, 1为评论点赞',
+#     `post_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '点赞的帖子id',
+#     `comment_id`   bigint(20) unsigned NOT NULL default 0 COMMENT '点赞的评论id',
+#     `user_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '点赞者id',
+#     `status`       tinyint(1) unsigned NOT NULL default 0 COMMENT '0取消点赞, 1为点赞生效',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='点赞表';
 
 
 

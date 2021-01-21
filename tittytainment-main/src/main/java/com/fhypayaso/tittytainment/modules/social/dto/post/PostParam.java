@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.modules.social.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.ToString;
@@ -27,11 +28,14 @@ public class PostParam {
     @NotBlank
     private String content;
 
+    @JsonProperty("topic_id")
     private Long topicId;
 
     @NotNull
+    @JsonProperty("post_type")
     private Integer postType;
 
+    @JsonProperty("movie_id")
     private Long movieId;
 
 }

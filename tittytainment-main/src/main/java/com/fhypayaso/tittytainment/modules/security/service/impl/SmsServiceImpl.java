@@ -39,7 +39,8 @@ public class SmsServiceImpl implements SmsService {
         // 生成验证码
         String captcha = smsUtil.generateCaptchaCode();
         // 验证码存入redis, 并设置验证码有效时间
-        redisUtil.setValueAndExpire(phone, captcha, expiration * 60);
+        redisUtil.setStrValue(phone, captcha);
+        redisUtil.setMinuteExpire(phone, expiration);
         // 发送验证码
         return smsUtil.sendMessage(phone, captcha);
     }

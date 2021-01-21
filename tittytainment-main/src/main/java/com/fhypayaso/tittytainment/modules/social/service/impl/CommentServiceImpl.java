@@ -7,13 +7,13 @@ import com.fhypayaso.tittytainment.modules.security.service.UserService;
 import com.fhypayaso.tittytainment.modules.social.dto.comment.CommentParam;
 import com.fhypayaso.tittytainment.modules.social.dto.comment.CommentVO;
 import com.fhypayaso.tittytainment.modules.social.service.CommentService;
+import com.fhypayaso.tittytainment.modules.social.service.LikeService;
 import com.fhypayaso.tittytainment.modules.social.service.ReplyService;
 import com.fhypayaso.tittytainment.pojo.entity.Comment;
 import com.fhypayaso.tittytainment.pojo.entity.Post;
 import com.fhypayaso.tittytainment.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -45,6 +45,9 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     private ReplyService replyService;
 
+    @Resource
+    private LikeService likeService;
+
 
     @Override
     public void createComment(CommentParam param) throws ApiException {
@@ -59,10 +62,16 @@ public class CommentServiceImpl implements CommentService {
         Long uid = userService.currentUserId();
         comment.setUserId(uid);
         comment.setStatus(true);
+        comment.setLikeNum(0L);
+        comment.setReplyNum(0L);
         comment.setCreatedTime(DateUtil.currentDate());
         comment.setUpdatedTime(DateUtil.currentDate());
 
         commentMapper.insert(comment);
+
+        // 添加评论数量
+        post.setCommentNum(post.getCommentNum() + 1);
+        postMapper.updateByPrimaryKey(post);
     }
 
     @Override
@@ -79,6 +88,7 @@ public class CommentServiceImpl implements CommentService {
                 .map(comment -> {
                     CommentVO vo = new CommentVO();
                     BeanUtils.copyProperties(comment, vo);
+                    vo.setLikeNum(likeService.queryCommentLikeNum(comment.getId()));
                     return vo;
                 })
                 .collect(Collectors.toList());

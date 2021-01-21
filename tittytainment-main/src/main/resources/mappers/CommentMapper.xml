@@ -6,6 +6,7 @@
     <result column="post_id" jdbcType="BIGINT" property="postId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="like_num" jdbcType="BIGINT" property="likeNum" />
+    <result column="reply_num" jdbcType="BIGINT" property="replyNum" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
@@ -27,10 +28,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ttmt_comment (post_id, user_id, like_num, 
+    insert into ttmt_comment (post_id, user_id, like_num, reply_num,
       `status`, created_time, updated_time, 
       content)
-    values (#{postId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{likeNum,jdbcType=BIGINT}, 
+    values (#{postId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{likeNum,jdbcType=BIGINT}, #{replyNum,jdbcType=BIGINT},
       #{status,jdbcType=BIT}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -39,6 +40,7 @@
     set post_id = #{postId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       like_num = #{likeNum,jdbcType=BIGINT},
+      reply_num = #{replyNum,jdbcType=BIGINT},
       `status` = #{status,jdbcType=BIT},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},
@@ -46,19 +48,19 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, post_id, user_id, like_num, `status`, created_time, updated_time, content
+    select id, post_id, user_id, like_num, reply_num, `status`, created_time, updated_time, content
     from ttmt_comment
     where id = #{id,jdbcType=BIGINT}
   </select>
 
   <select id="selectByPost" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, post_id, user_id, like_num, `status`, created_time, updated_time, content
+    select id, post_id, user_id, like_num, reply_num, `status`, created_time, updated_time, content
     from ttmt_comment
     where post_id = #{postId,jdbcType=BIGINT}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, post_id, user_id, like_num, `status`, created_time, updated_time, content
+    select id, post_id, user_id, like_num, reply_num,`status`, created_time, updated_time, content
     from ttmt_comment
   </select>
 </mapper>

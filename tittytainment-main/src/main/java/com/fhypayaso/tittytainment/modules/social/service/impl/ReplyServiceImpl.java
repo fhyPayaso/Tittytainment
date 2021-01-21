@@ -70,11 +70,15 @@ public class ReplyServiceImpl implements ReplyService {
         }
 
         reply.setStatus(true);
+        reply.setContent(param.getContent());
         reply.setReplyUserId(param.getReplyUserId());
         reply.setUserId(userService.currentUserId());
         reply.setCreatedTime(DateUtil.currentDate());
         reply.setUpdatedTime(DateUtil.currentDate());
         ApiException.when(replyMapper.insert(reply) == 0, "添加评论失败");
+
+        comment.setReplyNum(comment.getReplyNum() + 1);
+        commentMapper.updateByPrimaryKey(comment);
     }
 
     @Override
@@ -116,6 +120,7 @@ public class ReplyServiceImpl implements ReplyService {
 
         if (uid.equals(reply.getUserId()) || uid.equals(comment.getUserId()) || uid.equals(post.getCreateUserId())) {
             ApiException.when(replyMapper.deleteByPrimaryKey(replyId) == 0, "删除失败");
+            return;
         }
 
         throw new ApiException("无删除权限");

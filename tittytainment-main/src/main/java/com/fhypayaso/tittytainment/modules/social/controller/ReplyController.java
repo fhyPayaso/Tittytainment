@@ -27,7 +27,7 @@ public class ReplyController {
     private ReplyService replyService;
 
 
-    @PostMapping("/comment")
+    @PostMapping("/create")
     @ApiOperation("添加回复")
     CommonResult<Void> replyToComment(@RequestBody ReplyParam param) throws ApiException {
         replyService.replyToComment(param);
@@ -35,7 +35,7 @@ public class ReplyController {
     }
 
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ApiOperation("获取评论下的回复列表")
     CommonResult<PageInfo<ReplyVO>> replyListByComment(@RequestParam("comment_id") Long commentId,
                                                        @RequestParam(value = "offset", defaultValue = "0") Integer offset,

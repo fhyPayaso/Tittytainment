@@ -120,6 +120,13 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!-- 定时任务-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+
 
         <!-- 批处理框架-->
         <dependency>
