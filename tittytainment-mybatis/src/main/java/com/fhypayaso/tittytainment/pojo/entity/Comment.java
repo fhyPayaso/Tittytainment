@@ -12,6 +12,8 @@ public class Comment implements Serializable {
 
     private Long likeNum;
 
+    private Long replyNum;
+
     private Boolean status;
 
     private Date createdTime;
@@ -52,6 +54,14 @@ public class Comment implements Serializable {
 
     public void setLikeNum(Long likeNum) {
         this.likeNum = likeNum;
+    }
+
+    public Long getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(Long replyNum) {
+        this.replyNum = replyNum;
     }
 
     public Boolean getStatus() {
@@ -96,6 +106,7 @@ public class Comment implements Serializable {
         sb.append(", postId=").append(postId);
         sb.append(", userId=").append(userId);
         sb.append(", likeNum=").append(likeNum);
+        sb.append(", replyNum=").append(replyNum);
         sb.append(", status=").append(status);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);

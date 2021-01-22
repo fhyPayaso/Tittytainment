@@ -3,6 +3,8 @@ package com.fhypayaso.tittytainment.modules.social.service.impl;
 import com.fhypayaso.tittytainment.dao.CommentMapper;
 import com.fhypayaso.tittytainment.dao.LikeMapper;
 import com.fhypayaso.tittytainment.dao.PostMapper;
+import com.fhypayaso.tittytainment.modules.message.MessageType;
+import com.fhypayaso.tittytainment.modules.message.service.MessageService;
 import com.fhypayaso.tittytainment.modules.security.util.RedisUtil;
 import com.fhypayaso.tittytainment.modules.social.config.LikeType;
 import com.fhypayaso.tittytainment.modules.social.dto.like.LikeNumDTO;
@@ -10,9 +12,11 @@ import com.fhypayaso.tittytainment.modules.social.dto.like.LikeParam;
 import com.fhypayaso.tittytainment.modules.social.service.LikeService;
 import com.fhypayaso.tittytainment.pojo.entity.Comment;
 import com.fhypayaso.tittytainment.pojo.entity.Like;
+import com.fhypayaso.tittytainment.pojo.entity.Message;
 import com.fhypayaso.tittytainment.pojo.entity.Post;
 import com.fhypayaso.tittytainment.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +57,9 @@ public class LikeServiceImpl implements LikeService {
 
     @Resource
     private PostMapper postMapper;
+
+    @Resource
+    private MessageService messageService;
 
 
     @Override
@@ -127,6 +134,28 @@ public class LikeServiceImpl implements LikeService {
             // DB未命中
             if (like == null) {
                 hasChange = true;
+
+                // 未命中直接创建新的点赞记录入库
+                like = new Like();
+                BeanUtils.copyProperties(param, like);
+                like.setCommentId(param.getCommentId() == null ? 0L : param.getCommentId());
+                like.setPostId(param.getPostId() == null ? 0L : param.getPostId());
+                like.setStatus(status == 1);
+                like.setCreatedTime(DateUtil.currentDate());
+                like.setUpdatedTime(DateUtil.currentDate());
+                likeMapper.insert(like);
+
+                // 当点赞记录入库时，发送点赞信息
+                Long sendUserId = 0L;
+                if (LikeType.POST.check(param.getType())) {
+                    Post post = postMapper.selectByPrimaryKey(param.getPostId());
+                    sendUserId = post.getCreateUserId();
+                } else if (LikeType.COMMENT.check(param.getType())) {
+                    Comment comment = commentMapper.selectByPrimaryKey(param.getCommentId());
+                    sendUserId = comment.getUserId();
+                }
+                messageService.createMessage(MessageType.LIKE, like.getId(), param.getUserId(), sendUserId);
+
             } else {
                 // DB命中
                 int dbStatus = like.getStatus() ? 1 : 0;

@@ -3,6 +3,7 @@ package com.fhypayaso.tittytainment.modules.social.task;
 import com.fhypayaso.tittytainment.dao.CommentMapper;
 import com.fhypayaso.tittytainment.dao.LikeMapper;
 import com.fhypayaso.tittytainment.dao.PostMapper;
+import com.fhypayaso.tittytainment.modules.message.MessageType;
 import com.fhypayaso.tittytainment.modules.security.util.RedisUtil;
 import com.fhypayaso.tittytainment.modules.social.config.LikeType;
 import com.fhypayaso.tittytainment.modules.social.dto.like.LikeNumDTO;

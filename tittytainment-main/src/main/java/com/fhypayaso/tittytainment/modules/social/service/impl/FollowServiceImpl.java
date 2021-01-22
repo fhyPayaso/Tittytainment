@@ -2,6 +2,8 @@ package com.fhypayaso.tittytainment.modules.social.service.impl;
 
 import com.fhypayaso.tittytainment.dao.UserFollowMapper;
 import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.message.MessageType;
+import com.fhypayaso.tittytainment.modules.message.service.MessageService;
 import com.fhypayaso.tittytainment.modules.security.dto.vo.UserVO;
 import com.fhypayaso.tittytainment.modules.security.service.UserService;
 import com.fhypayaso.tittytainment.modules.social.service.FollowService;
@@ -12,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sun.misc.resources.Messages;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -35,6 +38,9 @@ public class FollowServiceImpl implements FollowService {
     @Resource
     private UserService userService;
 
+    @Resource
+    private MessageService messageService;
+
 
     @Override
     public void followOther(Long followUserId) throws ApiException {
@@ -54,6 +60,9 @@ public class FollowServiceImpl implements FollowService {
         userFollow.setUpdatedTime(DateUtil.currentDate());
 
         ApiException.when(userFollowMapper.insert(userFollow) == 0, "关注失败");
+
+        // 发送信息
+        messageService.createMessage(MessageType.FOLLOW, userFollow.getId(), uid, followUserId);
     }
 
     @Override

@@ -403,7 +403,47 @@
 #   DEFAULT CHARSET = utf8mb4 COMMENT ='点赞表';
 
 
+# #############################################
+# ##
+# ##      站内信相关表
+# ##
+# #############################################
+#
+# DROP TABLE IF EXISTS `ttmt_message`;
+# CREATE TABLE `ttmt_message`
+# (
+#     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+#     `type`         int unsigned        NOT NULL default 0 COMMENT '0为系统类型信息, 1为点赞类型信息，2为评论类型信息，3为回复类型信息，4为关注类型信息',
+#     `type_id`      bigint(20) unsigned NOT NULL default 0 COMMENT '不同种信息对应的事件id',
+#     `send_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '需要推送给的用户',
+#     `from_user_id` bigint(20) unsigned NOT NULL default 0 COMMENT '产生该事件的用户',
+#     `has_read`     tinyint(1) unsigned NOT NULL default 0 COMMENT '0为未读, 1为已读',
+#     `message`      text(1000) COMMENT '消息内容',
+#     `created_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+#     `updated_time` timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   DEFAULT CHARSET = utf8mb4 COMMENT ='点赞表';
 
 
+#############################################
+##
+##      App 版本相关信息  主版本号  次版本号  灰度版本号  下载地址 更新信息
+##
+#############################################
 
-
+DROP TABLE IF EXISTS `ttmt_app_config`;
+CREATE TABLE `ttmt_app_config`
+(
+    `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `main_version_code` int unsigned        NOT NULL default 0 COMMENT '主版本号',
+    `sub_version_code`  int unsigned        NOT NULL default 0 COMMENT '次版本号',
+    `gray_version_code` int unsigned        NOT NULL default 0 COMMENT '灰度版本号',
+    `version_code`      varchar(20)         NOT NULL DEFAULT '' COMMENT '版本号字符串',
+    `resource_url`      varchar(200)        NOT NULL DEFAULT '' COMMENT '当前版本apk下载地址',
+    `update_info`       text(1000) COMMENT '版本更新内容',
+    `created_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_time`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='点赞表';

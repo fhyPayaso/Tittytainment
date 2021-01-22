@@ -4,6 +4,8 @@ import com.fhypayaso.tittytainment.dao.CommentMapper;
 import com.fhypayaso.tittytainment.dao.PostMapper;
 import com.fhypayaso.tittytainment.dao.ReplyMapper;
 import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.message.MessageType;
+import com.fhypayaso.tittytainment.modules.message.service.MessageService;
 import com.fhypayaso.tittytainment.modules.security.service.UserService;
 import com.fhypayaso.tittytainment.modules.social.config.ReplyType;
 import com.fhypayaso.tittytainment.modules.social.dto.reply.ReplyParam;
@@ -47,6 +49,9 @@ public class ReplyServiceImpl implements ReplyService {
     @Resource
     private PostMapper postMapper;
 
+    @Resource
+    private MessageService messageService;
+
 
     @Override
     public void replyToComment(ReplyParam param) throws ApiException {
@@ -62,23 +67,31 @@ public class ReplyServiceImpl implements ReplyService {
         reply.setReplyType(param.getReplyType());
         reply.setCommentId(param.getCommentId());
 
+        Long sendUserId = comment.getUserId();
         if (ReplyType.TO_REPLY.check(param.getReplyType())) {
             // 回复某条回复
             Reply originReply = replyMapper.selectByPrimaryKey(param.getReplyId());
             ApiException.when(originReply == null, "回复的回复不存在");
             reply.setReplyId(param.getReplyId());
+            sendUserId = originReply.getUserId();
         }
+
+        Long uid = userService.currentUserId();
 
         reply.setStatus(true);
         reply.setContent(param.getContent());
         reply.setReplyUserId(param.getReplyUserId());
-        reply.setUserId(userService.currentUserId());
+        reply.setUserId(uid);
         reply.setCreatedTime(DateUtil.currentDate());
         reply.setUpdatedTime(DateUtil.currentDate());
         ApiException.when(replyMapper.insert(reply) == 0, "添加评论失败");
 
+        // 添加回复数量
         comment.setReplyNum(comment.getReplyNum() + 1);
         commentMapper.updateByPrimaryKey(comment);
+
+        // 发送回复信息
+        messageService.createMessage(MessageType.REPLY,reply.getId(),uid,sendUserId);
     }
 
     @Override

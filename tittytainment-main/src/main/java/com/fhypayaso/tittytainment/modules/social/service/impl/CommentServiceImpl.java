@@ -3,6 +3,8 @@ package com.fhypayaso.tittytainment.modules.social.service.impl;
 import com.fhypayaso.tittytainment.dao.CommentMapper;
 import com.fhypayaso.tittytainment.dao.PostMapper;
 import com.fhypayaso.tittytainment.exception.ApiException;
+import com.fhypayaso.tittytainment.modules.message.MessageType;
+import com.fhypayaso.tittytainment.modules.message.service.MessageService;
 import com.fhypayaso.tittytainment.modules.security.service.UserService;
 import com.fhypayaso.tittytainment.modules.social.dto.comment.CommentParam;
 import com.fhypayaso.tittytainment.modules.social.dto.comment.CommentVO;
@@ -48,6 +50,9 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     private LikeService likeService;
 
+    @Resource
+    private MessageService messageService;
+
 
     @Override
     public void createComment(CommentParam param) throws ApiException {
@@ -72,6 +77,9 @@ public class CommentServiceImpl implements CommentService {
         // 添加评论数量
         post.setCommentNum(post.getCommentNum() + 1);
         postMapper.updateByPrimaryKey(post);
+
+        // 添加评论消息
+        messageService.createMessage(MessageType.COMMENT,comment.getId(), uid, post.getCreateUserId());
     }
 
     @Override
