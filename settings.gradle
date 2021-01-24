@@ -1,2 +1,74 @@
+include ':lib-network'
 include ':app'
 rootProject.name = "tittytainment"
+
+
+def deps = [:]
+
+// ******************************************** 依赖相关 ********************************************//
+
+deps.kt = [
+        stdlib    : "org.jetbrains.kotlin:kotlin-stdlib:${KOTLIN_VERSION}",
+        ktx_core  : "androidx.core:core-ktx:${KTX_CORE_VERSION}",
+        plugin    : "org.jetbrains.kotlin:kotlin-gradle-plugin:${KOTLIN_VERSION}",
+        extensions: "org.jetbrains.kotlin:kotlin-android-extensions:${KOTLIN_VERSION}",
+]
+
+deps.androidx = [
+        appcompat       : "androidx.appcompat:appcompat:${ANDROIDX}",
+        material        : "com.google.android.material:material:${ANDROIDX}",
+        fragment        : "androidx.fragment:fragment-ktx:${RECYCLERVIEW}",
+        constraintlayout: "androidx.constraintlayout:constraintlayout:${ANDROIDX}",
+        drawerlayout    : "androidx.drawerlayout:drawerlayout:${ANDROIDX}",
+        annotation      : "androidx.annotation:annotation:${ANDROIDX}",
+        recyclerview    : "androidx.recyclerview:recyclerview:${ANDROIDX}",
+        cardview        : "androidx.cardview:cardview:${CARDVIEW_VERSION}",
+        viewpager       : "androidx.viewpager2:viewpager2:${VIEWPAGER_VERSION}",
+]
+
+deps.jetpack = [
+        livedata            : "androidx.lifecycle:lifecycle-livedata-ktx:${LIFECYCLE_VERSION}",
+        viewmodel           : "androidx.lifecycle:lifecycle-viewmodel-ktx:${LIFECYCLE_VERSION}",
+        viewmodel_savedstate: "androidx.lifecycle:lifecycle-viewmodel-savedstate:${LIFECYCLE_VERSION}",
+        paging_core         : "androidx.paging:paging-common-ktx:${PAGING_VERSION}",
+        paging_runtime      : "androidx.paging:paging-runtime-ktx:${PAGING_VERSION}",
+        paging_rx           : "androidx.paging:paging-rxjava2-ktx:${PAGING_VERSION}",
+        room                : "androidx.room:room-runtime:${ROOM_VERSION}",
+        room_rx             : "androidx.room:room-rxjava2:${ROOM_VERSION}",
+        room_kt             : "androidx.room:room-ktx:${ROOM_VERSION}",
+        navigation_ui       : "androidx.navigation:navigation-ui-ktx:${NAVIGATION_VERSION}",
+        navigation_runtime  : "androidx.navigation:navigation-runtime-ktx:${NAVIGATION_VERSION}",
+        navigation_fragment : "androidx.navigation:navigation-fragment-ktx:${NAVIGATION_VERSION}",
+]
+
+
+deps.network = [
+        retrofit               : "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}",
+        retrofit_convert_gson  : "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}",
+        retrofit_adapter_rxjava: "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}",
+        okhttp_logging         : "com.squareup.okhttp3:logging-interceptor:${OK_HTTP_VERSION}",
+]
+
+deps.tools = [
+        gson     : "com.google.code.gson:gson:${GSON_VERSION}",
+        rxjava   : "io.reactivex.rxjava3:rxjava:${RX_JAVA_VERSION}",
+        rxandroid: "io.reactivex.rxjava3:rxandroid:${RX_ANDROID_VERSION}",
+        glide    : "com.github.bumptech.glide:glide:${GLIDE_VERSION}",
+        matisse  : "com.zhihu.android:matisse:${MATISSE_VERSION}"
+]
+
+deps.processor = [
+        lifecycle: "androidx.lifecycle:lifecycle-compiler:${LIFECYCLE_VERSION}",
+        glide_apt: "com.github.bumptech.glide:compiler:${GLIDE_VERSION}",
+        room_apt : "androidx.room:room-compiler:${ROOM_VERSION}",
+]
+
+
+deps.test = [
+        junit        : "junit:junit:4.13.1",
+        ext_junit    : "androidx.test.ext:junit:1.1.1",
+        espresso_core: "androidx.test.espresso:espresso-core:3.2.0",
+        room_test    : "androidx.room:room-testing:${ROOM_VERSION}",
+]
+
+gradle.ext.deps = deps
