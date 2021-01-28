@@ -29,10 +29,15 @@ android {
 
 dependencies {
 
+    implementation project(path: ':lib-utils')
+
     implementation deps.network.retrofit
     implementation deps.network.retrofit_convert_gson
     implementation deps.network.retrofit_adapter_rxjava
     implementation deps.network.okhttp_logging
+
+    implementation deps.tools.rxjava
+    implementation deps.tools.rxandroid
 
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit

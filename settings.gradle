@@ -1,3 +1,4 @@
+include ':lib-utils'
 include ':lib-network'
 include ':app'
 rootProject.name = "tittytainment"
@@ -50,17 +51,23 @@ deps.network = [
 ]
 
 deps.tools = [
-        gson     : "com.google.code.gson:gson:${GSON_VERSION}",
-        rxjava   : "io.reactivex.rxjava3:rxjava:${RX_JAVA_VERSION}",
-        rxandroid: "io.reactivex.rxjava3:rxandroid:${RX_ANDROID_VERSION}",
-        glide    : "com.github.bumptech.glide:glide:${GLIDE_VERSION}",
-        matisse  : "com.zhihu.android:matisse:${MATISSE_VERSION}"
+        gson              : "com.google.code.gson:gson:${GSON_VERSION}",
+        rxjava            : "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}",
+        rxandroid         : "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}",
+        glide             : "com.github.bumptech.glide:glide:${GLIDE_VERSION}",
+        matisse           : "com.zhihu.android:matisse:${MATISSE_VERSION}",
+        dagger            : "com.google.dagger:dagger:${DAGGER_VERSION}",
+        dagger_android    : "com.google.dagger:dagger-android:${DAGGER_VERSION}",
+        dagger_android_sup: "com.google.dagger:dagger-android-support:${DAGGER_VERSION}",
+        hilt              : "com.google.dagger:hilt-android:2.28-alpha",
 ]
 
 deps.processor = [
-        lifecycle: "androidx.lifecycle:lifecycle-compiler:${LIFECYCLE_VERSION}",
-        glide_apt: "com.github.bumptech.glide:compiler:${GLIDE_VERSION}",
-        room_apt : "androidx.room:room-compiler:${ROOM_VERSION}",
+        lifecycle_apt     : "androidx.lifecycle:lifecycle-compiler:${LIFECYCLE_VERSION}",
+        glide_apt         : "com.github.bumptech.glide:compiler:${GLIDE_VERSION}",
+        room_apt          : "androidx.room:room-compiler:${ROOM_VERSION}",
+        dagger_apt        : "com.google.dagger:dagger-compiler:${DAGGER_VERSION}",
+        dagger_android_apt: "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}"
 ]
 
 
@@ -69,6 +76,7 @@ deps.test = [
         ext_junit    : "androidx.test.ext:junit:1.1.1",
         espresso_core: "androidx.test.espresso:espresso-core:3.2.0",
         room_test    : "androidx.room:room-testing:${ROOM_VERSION}",
+        hilt         : "com.google.dagger:hilt-android-compiler:2.28-alpha"
 ]
 
 gradle.ext.deps = deps
