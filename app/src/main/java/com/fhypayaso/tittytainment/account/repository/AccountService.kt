@@ -4,6 +4,7 @@ import com.fhypayaso.network.bean.ApiResponse
 import com.fhypayaso.tittytainment.account.pojo.LoginPswRequest
 import com.fhypayaso.tittytainment.account.pojo.LoginSmsRequest
 import com.fhypayaso.tittytainment.account.pojo.RegisterRequest
+import com.fhypayaso.tittytainment.profile.pojo.User
 import io.reactivex.Observable
 import io.reactivex.Observer
 import retrofit2.Response
@@ -30,4 +31,7 @@ interface AccountService {
 
     @POST("user/register")
     fun register(@Body param: RegisterRequest): Observable<Response<ApiResponse<Int>>>
+
+    @GET("user/info/token")
+    fun fetchUserInfo(): Observable<Response<ApiResponse<User>>>
 }

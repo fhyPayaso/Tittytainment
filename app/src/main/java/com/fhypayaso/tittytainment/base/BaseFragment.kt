@@ -6,10 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 
 
 /* ====================================================
@@ -19,29 +15,38 @@ import java.lang.reflect.Type
 #   @Date          : 1/26/21 12:04 AM
 #   @Description   : 
 # ====================================================*/
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB : ViewBinding>(val layoutId: Int) : Fragment() {
 
 
-//    protected var binding get() = _binding!!
+    private var _binding: VB? = null
+    protected val binding get() = _binding!!
 
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//
-////        return binding.root
-//    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(layoutId, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding = viewBinding(view)
+        initView()
+        initViewModel()
+    }
 
-    abstract fun layoutId(): Int
+    abstract fun viewBinding(view: View): VB
 
+    abstract fun initView()
 
-//    abstract fun initData()
-//
-//    abstract fun initView()
+    abstract fun initViewModel()
 
+    //释放数据
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 
 }

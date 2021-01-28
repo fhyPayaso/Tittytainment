@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.fhypayaso.tittytainment.R
 import com.fhypayaso.tittytainment.base.BaseFragment
+import com.fhypayaso.tittytainment.databinding.FragmentProfileBinding
 
 /* ====================================================
 #
@@ -14,10 +15,19 @@ import com.fhypayaso.tittytainment.base.BaseFragment
 #   @Date          : 1/26/21 12:05 AM
 #   @Description   : 
 # ====================================================*/
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
-
-    override fun layoutId(): Int {
-        return R.layout.fragment_profile
+    override fun viewBinding(view: View): FragmentProfileBinding {
+        return FragmentProfileBinding.bind(view)
     }
+
+    override fun initView() {
+
+    }
+
+    override fun initViewModel() {
+
+    }
+
+
 }

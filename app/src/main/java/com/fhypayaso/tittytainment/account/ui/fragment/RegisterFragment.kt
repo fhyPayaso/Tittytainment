@@ -4,10 +4,15 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.fhypayaso.tittytainment.MainActivity
 import com.fhypayaso.tittytainment.R
+import com.fhypayaso.tittytainment.account.ui.helper.AccountCheckHelper
 import com.fhypayaso.tittytainment.account.viewmodel.AccountViewModel
+import com.fhypayaso.tittytainment.base.BaseFragment
+import com.fhypayaso.tittytainment.databinding.FragmentAccountBinding
 import com.fhypayaso.utils.ToastUtil
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /* ====================================================
 #
@@ -17,9 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 #   @Description   : 
 # ====================================================*/
 @AndroidEntryPoint
-class RegisterFragment : AccountFragment() {
+class RegisterFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
+
+    @Inject
+    lateinit var mCheckHelper: AccountCheckHelper
 
     private val viewModel: AccountViewModel by viewModels()
+
+    override fun viewBinding(view: View): FragmentAccountBinding {
+        return FragmentAccountBinding.bind(view)
+    }
 
     override fun initView() {
 
@@ -36,11 +48,16 @@ class RegisterFragment : AccountFragment() {
         binding.btnSubmit.setOnClickListener { register() }
 
         binding.btnSms.setOnClickListener { sendSmsCode() }
+    }
 
 
-        viewModel.registerStatusLiveData.observe(this, Observer { goMainActivity() })
+    override fun initViewModel() {
+        viewModel.registerStatusLiveData.observe(this, Observer {
+            MainActivity.startActivity(context)
+            activity?.finish()
+        })
         viewModel.smsStatusLiveData.observe(this, Observer {
-            ToastUtil.showToast(context, "验证码已发送，请注意查收")
+            ToastUtil.showToast(context, R.string.toast_sms_has_send)
         })
         viewModel.smsClickableLiveData.observe(this, Observer {
             binding.btnSms.isClickable = it
@@ -51,25 +68,24 @@ class RegisterFragment : AccountFragment() {
     }
 
     private fun sendSmsCode() {
-
-        val phone = binding.editPhone.text
-        if (phone.isNullOrEmpty()) {
-            binding.editPhone.error = getString(R.string.error_empty_phone)
-            return
+        binding.editPhone.also {
+            if (mCheckHelper.checkPhone(it)) {
+                viewModel.sendSmsCode(it.text.toString())
+            }
         }
-        viewModel.sendSmsCode(phone.toString())
     }
 
 
     private fun register() {
 
-        if (!checkParam()) {
-            return
+        if (mCheckHelper.checkRegister(binding.editPhone, binding.editSms, binding.editPassword)
+        ) {
+            val phone = binding.editPhone.text.toString()
+            val password = binding.editPassword.text.toString()
+            val smsCode = binding.editSms.text.toString()
+            viewModel.register(phone, password, smsCode)
         }
-
-        val phone = binding.editPhone.text.toString()
-        val password = binding.editPassword.text.toString()
-        val smsCode = binding.editSms.text.toString()
-        viewModel.register(phone, password, smsCode)
     }
+
+
 }

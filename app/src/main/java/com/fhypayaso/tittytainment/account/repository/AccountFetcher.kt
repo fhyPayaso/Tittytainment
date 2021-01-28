@@ -1,19 +1,15 @@
 package com.fhypayaso.tittytainment.account.repository
 
-import com.fhypayaso.network.bean.ApiResponse
 import com.fhypayaso.network.rxcallback.MapperFunction
 import com.fhypayaso.network.rxcallback.VoidMapperFunction
 import com.fhypayaso.tittytainment.account.pojo.LoginPswRequest
 import com.fhypayaso.tittytainment.account.pojo.LoginSmsRequest
 import com.fhypayaso.tittytainment.account.pojo.RegisterRequest
 import com.fhypayaso.tittytainment.base.repository.BaseFetcher
+import com.fhypayaso.tittytainment.profile.pojo.User
 import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Response
 
 /* ====================================================
 #
@@ -52,6 +48,13 @@ class AccountFetcher constructor(
     fun register(param: RegisterRequest): Observable<Int> {
         return api.register(param)
             .map(VoidMapperFunction())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun checkToken(): Observable<User> {
+        return api.fetchUserInfo()
+            .map(MapperFunction<User>())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

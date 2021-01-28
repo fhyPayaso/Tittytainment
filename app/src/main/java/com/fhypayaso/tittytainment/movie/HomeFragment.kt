@@ -1,11 +1,9 @@
 package com.fhypayaso.tittytainment.movie
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.fhypayaso.tittytainment.R
 import com.fhypayaso.tittytainment.base.BaseFragment
+import com.fhypayaso.tittytainment.databinding.FragmentHomeBinding
 
 /* ====================================================
 #
@@ -14,10 +12,19 @@ import com.fhypayaso.tittytainment.base.BaseFragment
 #   @Date          : 1/26/21 12:04 AM
 #   @Description   : 
 # ====================================================*/
-class FeedFragment : BaseFragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-
-    override fun layoutId(): Int {
-        return R.layout.fragment_feed
+    override fun viewBinding(view: View): FragmentHomeBinding {
+        return FragmentHomeBinding.bind(view)
     }
+
+    override fun initView() {
+
+    }
+
+    override fun initViewModel() {
+
+    }
+
+
 }

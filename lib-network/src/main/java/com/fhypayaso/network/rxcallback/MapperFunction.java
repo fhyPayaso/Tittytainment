@@ -45,6 +45,10 @@ public class MapperFunction<T> implements Function<Response<ApiResponse<T>>, T> 
             throw new ApiException(apiResponse.getCode(), apiResponse.getMessage());
         }
 
+        if(apiResponse.getData() == null) {
+            throw new ApiException(ApiExceptionHandler.BODY_EMPTY_ERROR, "返回体为空");
+        }
+
         return apiResponse.getData();
     }
 

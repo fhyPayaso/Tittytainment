@@ -5,6 +5,7 @@ import com.fhypayaso.tittytainment.account.repository.AccountCache
 import com.fhypayaso.tittytainment.account.repository.AccountFetcher
 import com.fhypayaso.tittytainment.account.repository.AccountRepository
 import com.fhypayaso.tittytainment.account.repository.AccountService
+import com.fhypayaso.tittytainment.account.ui.helper.AccountCheckHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,11 @@ object AccountModule {
     @Provides
     fun provideAccountFetcher(accountService: AccountService): AccountFetcher {
         return AccountFetcher(accountService)
+    }
+
+    @Provides
+    fun provideAccountCheckHelper(): AccountCheckHelper {
+        return AccountCheckHelper()
     }
 
     // 单例的作用域为activity

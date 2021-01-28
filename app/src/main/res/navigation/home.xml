@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.fhypayaso.tittytainment.movie.FeedFragment"
+        android:name="com.fhypayaso.tittytainment.movie.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_feed">
+        tools:layout="@layout/fragment_home">
         <!--        <action-->
         <!--            android:id="@+id/action_title_to_about"-->
         <!--            app:destination="@id/aboutScreen"/>-->
