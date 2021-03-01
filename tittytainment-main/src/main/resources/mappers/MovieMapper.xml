@@ -81,10 +81,24 @@
     where year = #{year, jdbcType=INTEGER}
   </select>
 
+  <select id="selectHaveCover"  resultMap="BaseResultMap">
+    select id, douban_id, `name`, `alias`, cover_url, douban_score, douban_vote, mins,
+           release_date, `year`, created_time, updated_time, storyline, tags
+    from ttmt_movie
+    where cover_url != ""
+  </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, douban_id, `name`, `alias`, cover_url, douban_score, douban_vote, mins, 
     release_date, `year`, created_time, updated_time, storyline, tags
     from ttmt_movie
+  </select>
+
+  <select id="selectNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, douban_id, `name`, `alias`, cover_url, douban_score, douban_vote, mins,
+           release_date, `year`, created_time, updated_time, storyline, tags
+    from ttmt_movie
+    limit #{num}
   </select>
 
 

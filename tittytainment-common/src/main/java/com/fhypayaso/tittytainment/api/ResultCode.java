@@ -19,7 +19,9 @@ public enum ResultCode implements IResultCode {
 
     FORBIDDEN(403, "没有相关权限"),
 
-    LOCKED(405, "账号被锁定，请联系管理员进行解锁");
+    LOCKED(405, "账号被锁定，请联系管理员进行解锁"),
+
+    AUTHORIZATION(406, "权限错误");
 
 
     private int code;

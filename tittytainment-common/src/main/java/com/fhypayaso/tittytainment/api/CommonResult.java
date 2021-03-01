@@ -148,4 +148,8 @@ public class CommonResult<T> implements Serializable {
         return new CommonResult<>(ResultCode.LOCKED.getCode(), ResultCode.LOCKED.getMsg());
     }
 
+    public static <T> CommonResult<T> authorizationError(String msg) {
+        return new CommonResult<>(ResultCode.AUTHORIZATION.getCode(), msg);
+    }
+
 }

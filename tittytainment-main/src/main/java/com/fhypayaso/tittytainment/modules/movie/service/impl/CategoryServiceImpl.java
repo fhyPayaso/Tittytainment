@@ -142,7 +142,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // 查询当前类别下的所有电影
         for (MovieCategory mc : movieCategories) {
-            voList.add(movieService.queryById(mc.getMovieId(),true));
+            voList.add(movieService.queryById(mc.getMovieId(),false));
         }
 
         return new PageInfo<>(voList);

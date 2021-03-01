@@ -28,7 +28,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Resource;
 
-@Configuration
+//@Configuration
 @EnableBatchProcessing
 @Slf4j
 public class MovieBatchConfig {

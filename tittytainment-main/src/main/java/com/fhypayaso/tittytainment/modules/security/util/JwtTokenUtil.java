@@ -1,14 +1,13 @@
 package com.fhypayaso.tittytainment.modules.security.util;
 
 import com.fhypayaso.tittytainment.modules.security.dto.JwtUser;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,11 +78,17 @@ public class JwtTokenUtil {
      * @param token token
      * @return Claims
      */
-    private Claims parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(this.secret.getBytes(StandardCharsets.UTF_8))
-                .parseClaimsJws(token)
-                .getBody();
+    private Claims parseToken(String token) throws IOException {
+
+        try {
+
+            return Jwts.parser()
+                    .setSigningKey(this.secret.getBytes(StandardCharsets.UTF_8))
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException e) {
+            throw new IOException(e);
+        }
     }
 
     /**
@@ -92,7 +97,7 @@ public class JwtTokenUtil {
      * @param token token
      * @return 是否过期
      */
-    private Boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(String token) throws IOException {
         Claims claims = parseToken(token);
         Date expiration = claims.getExpiration();
         return expiration.before(currentDate());
@@ -105,7 +110,7 @@ public class JwtTokenUtil {
      * @param token token
      * @return phone number
      */
-    public String parsePhoneNumber(String token) {
+    public String parsePhoneNumber(String token) throws IOException {
 
         if (StringUtils.isEmpty(token))
             return null;
@@ -114,7 +119,7 @@ public class JwtTokenUtil {
         return claims.getSubject();
     }
 
-    public Date parseCreateDate(String token) {
+    public Date parseCreateDate(String token) throws IOException {
         if (StringUtils.isEmpty(token))
             return null;
         Claims claims = parseToken(token);
@@ -128,7 +133,7 @@ public class JwtTokenUtil {
      * @param userDetails
      * @return
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, UserDetails userDetails) throws IOException {
         JwtUser user = (JwtUser) userDetails;
         String phone = parsePhoneNumber(token);
         return !isTokenExpired(token) && phone.equals(user.getUsername());

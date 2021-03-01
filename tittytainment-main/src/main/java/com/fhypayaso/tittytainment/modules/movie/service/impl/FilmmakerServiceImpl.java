@@ -1,6 +1,5 @@
 package com.fhypayaso.tittytainment.modules.movie.service.impl;
 
-import com.fhypayaso.tittytainment.batch.filmmaker.dto.FilmmakerBatchDto;
 import com.fhypayaso.tittytainment.dao.FilmmakerMapper;
 import com.fhypayaso.tittytainment.dao.MovieFilmmakerMapper;
 import com.fhypayaso.tittytainment.exception.ApiException;
@@ -10,14 +9,12 @@ import com.fhypayaso.tittytainment.modules.movie.service.FilmmakerService;
 import com.fhypayaso.tittytainment.modules.movie.service.MovieService;
 import com.fhypayaso.tittytainment.modules.movie.service.ProfessionService;
 import com.fhypayaso.tittytainment.pojo.entity.Filmmaker;
-import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import com.fhypayaso.tittytainment.pojo.entity.MovieFilmmaker;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.dao;
 
+import com.fhypayaso.tittytainment.pojo.entity.Post;
 import com.fhypayaso.tittytainment.pojo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,4 +19,6 @@ public interface UserMapper {
     List<User> selectAll();
 
     int updateByPrimaryKey(User user);
+
+    List<User> selectNum(Integer num);
 }

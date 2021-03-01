@@ -1,5 +1,6 @@
 package com.fhypayaso.tittytainment.dao;
 
+import com.fhypayaso.tittytainment.pojo.entity.Movie;
 import com.fhypayaso.tittytainment.pojo.entity.Post;
 import com.fhypayaso.tittytainment.pojo.entity.Topic;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,4 +23,6 @@ public interface PostMapper {
     int updateByPrimaryKey(Post record);
 
     int deleteAllPostByTopic(Long topicId);
+
+    List<Post> selectNum(Integer num);
 }

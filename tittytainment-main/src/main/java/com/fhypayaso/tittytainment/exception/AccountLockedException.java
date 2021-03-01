@@ -11,8 +11,10 @@ import org.springframework.security.core.AuthenticationException;
 #   @Description   : 
 # ====================================================*/
 public class AccountLockedException extends AuthenticationException {
+
+
     public AccountLockedException(String msg) {
-        super(msg);
+        super("当前账户不可用");
     }
 
     public AccountLockedException(String msg, Throwable t) {

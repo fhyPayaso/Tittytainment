@@ -22,6 +22,8 @@ import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.repository.ExecutionContextSerializer;
+import org.springframework.batch.core.repository.dao.XStreamExecutionContextStringSerializer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -32,7 +34,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.Resource;
 
-@Configuration
+//@Configuration
 @EnableBatchProcessing
 @Slf4j
 public class FilmmakerBatchConfig {

@@ -37,11 +37,15 @@ public interface MovieService {
 
     PageInfo<MovieVO> queryMovieByYear(Integer year, Integer offset, Integer count) throws ApiException;
 
+    PageInfo<MovieVO> queryMovieWithCover(Integer offset, Integer count) throws ApiException;
+
 
     void deleteById(Long id) throws ApiException;
 
     int update(MovieParam qvo) throws ApiException;
 
     List<Movie> queryAll();
+
+    MovieVO wrapMovie(Movie movie, Boolean withActorInfo) throws ApiException;
 
 }

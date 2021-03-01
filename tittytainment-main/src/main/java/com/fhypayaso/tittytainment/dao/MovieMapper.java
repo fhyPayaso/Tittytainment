@@ -18,8 +18,14 @@ public interface MovieMapper {
 
     List<Movie> selectByYear(Integer year);
 
+    List<Movie> selectHaveCover();
+
     int updateByPrimaryKey(Movie record);
 
     int deleteAll();
+
+
+    List<Movie> selectNum(Integer num);
+
 
 }

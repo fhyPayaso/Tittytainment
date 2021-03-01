@@ -174,7 +174,7 @@ public class MovieUserServiceImpl implements MovieUserService {
     private PageInfo<MovieVO> wrapPageInfo(List<MovieUser> list) throws ApiException {
         List<MovieVO> voList = new ArrayList<>();
         for (MovieUser mu : list) {
-            MovieVO vo = movieService.queryById(mu.getMovieId(), true);
+            MovieVO vo = movieService.queryById(mu.getMovieId(), false);
             voList.add(vo);
         }
         return new PageInfo<>(voList);

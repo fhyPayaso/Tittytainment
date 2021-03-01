@@ -56,10 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    private String[] ignoreUrl() {
+    public static String[] ignoreUrl() {
         return new String[]{
                 "user/register",
-                "user/login**",
+                "user/login",
                 "user/password/**",
                 "sms/**"
         };

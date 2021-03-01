@@ -93,7 +93,17 @@ public class MovieController {
                                                       @RequestParam(name = "offset", defaultValue = "0") Integer offset,
                                                       @RequestParam(name = "count", defaultValue = "20") Integer count) throws ApiException {
         PageInfo<MovieVO> voPage = movieService.queryMovieByYear(year, offset, count);
-        return CommonResult.success(voPage, "查询成功");
+        return CommonResult.success(voPage);
+    }
+
+
+    @GetMapping("/feedMock")
+    @ApiOperation("只查询有封面的，mock数据")
+    CommonResult<PageInfo<MovieVO>> feedMock(@RequestParam(name = "offset", defaultValue = "0") Integer offset,
+                                             @RequestParam(name = "count", defaultValue = "20") Integer count) throws ApiException {
+        PageInfo<MovieVO> voPage = movieService.queryMovieWithCover(offset, count);
+        return CommonResult.success(voPage);
+
     }
 
 

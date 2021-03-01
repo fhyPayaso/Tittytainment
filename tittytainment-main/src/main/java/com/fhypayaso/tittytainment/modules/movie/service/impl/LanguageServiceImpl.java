@@ -142,7 +142,7 @@ public class LanguageServiceImpl implements LanguageService {
 
         // 查询当前类别下的所有电影
         for (MovieLanguage mc : movieLanguages) {
-            voList.add(movieService.queryById(mc.getMovieId(),true));
+            voList.add(movieService.queryById(mc.getMovieId(),false));
         }
 
         return new PageInfo<>(voList);

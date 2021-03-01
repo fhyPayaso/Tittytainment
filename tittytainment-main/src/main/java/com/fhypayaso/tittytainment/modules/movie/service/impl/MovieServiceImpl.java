@@ -117,21 +117,22 @@ public class MovieServiceImpl implements MovieService {
         return movieVO;
     }
 
-
-    private MovieVO wrapMovie(Movie movie, Boolean withActorInfo) throws ApiException {
+    @Override
+    public MovieVO wrapMovie(Movie movie, Boolean withDetailInfo) throws ApiException {
 
         if (movie == null)
             return null;
 
         MovieVO movieVO = new MovieVO();
         BeanUtils.copyProperties(movie, movieVO);
+        if (!withDetailInfo) {
+            return movieVO;
+        }
+
+
         movieVO.setLanguages(languageService.queryByMovie(movie.getId()));
         movieVO.setCategories(categoryService.queryByMovie(movie.getId()));
         movieVO.setRegions(regionService.queryByMovie(movie.getId()));
-
-        if (!withActorInfo) {
-            return movieVO;
-        }
 
         // 先获取当前电影下的全部演职人员信息
         List<MovieFilmmaker> movieFilmmakerList = filmmakerService.queryMovieFilmmaker(movie.getId());
@@ -262,7 +263,19 @@ public class MovieServiceImpl implements MovieService {
 
         List<MovieVO> voList = new ArrayList<>();
         for (Movie movie : movies) {
-            voList.add(wrapMovie(movie, true));
+            voList.add(wrapMovie(movie, false));
+        }
+        return new PageInfo<>(voList);
+    }
+
+    @Override
+    public PageInfo<MovieVO> queryMovieWithCover(Integer offset, Integer count) throws ApiException {
+        PageHelper.offsetPage(offset, count);
+        List<Movie> movies = movieMapper.selectHaveCover();
+
+        List<MovieVO> voList = new ArrayList<>();
+        for (Movie movie : movies) {
+            voList.add(wrapMovie(movie, false));
         }
         return new PageInfo<>(voList);
     }

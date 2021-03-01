@@ -22,14 +22,14 @@ import javax.annotation.Resource;
 @Slf4j
 public class BatchServiceImpl implements BatchService {
 
-    @Resource
-    private JobLauncher jobLauncher;
-
-    @Resource
-    private Job movieBatchJob;
-
-    @Resource
-    private Job filmmakerBatchJob;
+//    @Resource
+//    private JobLauncher jobLauncher;
+//
+//    @Resource
+//    private Job movieBatchJob;
+//
+//    @Resource
+//    private Job filmmakerBatchJob;
 
 
     @Override
@@ -40,7 +40,7 @@ public class BatchServiceImpl implements BatchService {
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
         //执行任务
-        jobLauncher.run(movieBatchJob, jobParameters);
+//        jobLauncher.run(movieBatchJob, jobParameters);
 
         return true;
     }
@@ -50,7 +50,7 @@ public class BatchServiceImpl implements BatchService {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
-        jobLauncher.run(filmmakerBatchJob, jobParameters);
+//        jobLauncher.run(filmmakerBatchJob, jobParameters);
         return true;
     }
 }

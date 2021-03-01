@@ -72,4 +72,11 @@
     where topic_id = #{topicId,jdbcType=BIGINT}
   </select>
 
+  <select id="selectNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, title, topic_id, post_type, movie_id, create_user_id, like_num, comment_num,
+           last_comment_time, created_time, updated_time, content
+    from ttmt_post
+    limit #{num}
+  </select>
+
 </mapper>

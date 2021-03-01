@@ -13,6 +13,7 @@ import com.fhypayaso.tittytainment.api.CommonResult;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -94,10 +95,10 @@ public class GlobalExceptionInterceptor {
     }
 
     @ResponseBody
-    @ExceptionHandler(value = AccountLockedException.class)
-    public CommonResult accountLockedExceptionHandler(AccountLockedException e) {
-        log.error(e.toString());
-        return CommonResult.locked();
+    @ExceptionHandler(value = AuthenticationException.class)
+    public CommonResult accountLockedExceptionHandler(AuthenticationException e) {
+//        log.error(e.toString());
+        return CommonResult.authorizationError(e.getMessage());
     }
 
 }

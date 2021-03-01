@@ -19,11 +19,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ttmt_user (phone, `password`, `name`, 
-      cover_url, `status`, created_time, 
+    insert into ttmt_user (phone, `password`, `name`,
+      cover_url, `status`, created_time,
       updated_time)
-    values (#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{coverUrl,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createdTime,jdbcType=TIMESTAMP}, 
+    values (#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{coverUrl,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createdTime,jdbcType=TIMESTAMP},
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.fhypayaso.tittytainment.pojo.entity.User">
@@ -54,4 +54,11 @@
     select id, phone, `password`, `name`, cover_url, `status`, created_time, updated_time
     from ttmt_user
   </select>
+
+  <select id="selectNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, phone, `password`, `name`, cover_url, `status`, created_time, updated_time
+    from ttmt_user
+    limit #{num}
+  </select>
+
 </mapper>

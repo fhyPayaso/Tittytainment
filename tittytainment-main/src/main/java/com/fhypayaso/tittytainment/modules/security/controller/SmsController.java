@@ -33,14 +33,13 @@ public class SmsController {
     private SmsService smsService;
 
 
-
-    @GetMapping("/captcha")
+    @GetMapping("captcha/{phone_number}")
     @ApiOperation(value = "验证码发送")
     CommonResult sendMessage(@ApiParam(value = "手机号")
                              @NotBlank(message = "手机号不能为空")
                              @Pattern(regexp = "^[1][3,4,5,6,7,8,9][0-9]{9}$", message = "手机号格式有误")
                              @Size(min = 11, max = 11, message = "手机号只能为11位")
-                             @RequestParam("phone_number") String phone) throws TencentCloudSDKException, ApiException {
+                             @PathVariable("phone_number") String phone) throws TencentCloudSDKException, ApiException {
         ApiException.when(!smsService.sendMessage(phone), "验证码发送失败");
         return CommonResult.success("验证码发送成功");
     }
